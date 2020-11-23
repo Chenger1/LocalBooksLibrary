@@ -128,3 +128,5 @@ dmypy.json
 # Pyre type checker
 .pyre/
 /library/library/config.py
+/library/book_finder/migrations/
+.idea
