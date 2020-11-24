@@ -6,4 +6,5 @@ commit_info:
 
 * logic: - add some business functionality;
 * update: file/function/element - update behavior in some code;
-* model: - add/update model
+* model: - add/update model;
+* FIX: - fix problem;
