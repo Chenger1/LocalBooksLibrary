@@ -38,7 +38,7 @@ class Book(models.Model):
 
     last_read_time = models.DateTimeField(auto_now=True)
 
-    author = models.ManyToManyField(Author, related_name='author', blank=True)
+    author = models.ManyToManyField(Author, related_name='books', blank=True)
     description = models.TextField(max_length=500, blank=True)
 
     rate = models.IntegerField(choices=RATE_CHOICES, blank=True)
