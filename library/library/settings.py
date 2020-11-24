@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'book_finder.apps.BookFinderConfig',
+    'books.apps.BooksConfig',
 ]
 
 MIDDLEWARE = [

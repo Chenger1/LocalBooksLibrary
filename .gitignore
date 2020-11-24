@@ -129,4 +129,5 @@ dmypy.json
 .pyre/
 /library/library/config.py
 /library/book_finder/migrations/
+/library/books/migrations/
 .idea
