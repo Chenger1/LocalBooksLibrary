@@ -30,13 +30,17 @@ def find_books_in_system(path: str, dir_name: str = 'LocalLibraryBaseDir') -> Op
 
         for item in items_to_scan:
             item_path = f'{path}\\{item}'
+            item_parts = item.split('.')
+            item_name = '.'.join(item_parts[:-1])
+
             if os.path.isfile(item_path) and _file_extension_checker(item):
                 structure[dir_name]['includes'].update(
                     {
-                        item: {
+                        item_name: {
                             'type': 'file',
-                            'format': f'{item.split(".")[-1]}',
-                            'path': item_path
+                            'format': item_parts[-1],
+                            'path': item_path,
+                            'size': os.path.getsize(item_path) / 1000000
                             }
                     }
                 )
