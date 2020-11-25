@@ -1,6 +1,20 @@
 from django.db import models
 
 
+class Folder(models.Model):
+    name = models.CharField(max_length=250)
+    parent_folder = models.ForeignKey('self', on_delete=models.CASCADE, blank=True,
+                                      null=True, related_name='subfolders')  # Folder can have subfolders
+
+    size = models.FloatField(max_length=25)
+
+    created = models.DateTimeField()
+
+    class Meta:
+        ordering = ['name', 'books']
+        db_table = 'folder'
+
+
 class Author(models.Model):
     name = models.CharField(max_length=250)
     surname = models.CharField(max_length=250, blank=True)
@@ -44,6 +58,9 @@ class Book(models.Model):
     rate = models.IntegerField(choices=RATE_CHOICES, blank=True)
 
     review = models.TextField(blank=True)
+
+    folder = models.ForeignKey(Folder, on_delete=models.CASCADE,
+                               related_name='books')
 
     class Meta:
         ordering = ['title']
