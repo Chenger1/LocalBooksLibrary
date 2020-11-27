@@ -56,7 +56,8 @@ class Finder:
 
             for item in item_to_scan:
                 item_path = f'{path}\\{item}'
-                *item_name, item_extension = item.split('.')
+                *item_name_parts, item_extension = item.split('.')
+                item_name = ''.join(item_name_parts)
 
                 if os.path.isfile(item_path) and self._file_extension_checker(item_extension):
                     book = Book(name=item_name, path=item_path,
