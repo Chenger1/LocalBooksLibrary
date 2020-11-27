@@ -39,18 +39,20 @@ class Directory(BaseItem):
 
 
 class Finder:
-    def find_books_in_system(self, path: str, dir_name: str = 'LocalLibraryBaseDir') -> Optional[Directory]:
+    def find_books_in_system(self, path: str, dir_name: str = None) -> Optional[Directory, dict]:
         """ Finds all the books for given path.
         :return None if path is wrong.
         :return Folder instance
         """
+        if os.path.isfile(path):
+            return {'status': 'Wrong path'}
 
         try:
             item_to_scan = os.listdir(path)
         except FileNotFoundError:
-            return None
+            return {'status': 'Wrong path'}
         else:
-            directory = Directory(name=dir_name, path='', includes=[], size=0)
+            directory = Directory(name=dir_name or path.split('\\')[0], path=path, includes=[], size=0)
 
             for item in item_to_scan:
                 item_path = f'{path}\\{item}'
