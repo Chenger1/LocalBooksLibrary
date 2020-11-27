@@ -1,4 +1,4 @@
-from typing import Optional, List
+from typing import Union, List
 from dataclasses import dataclass, field
 from functools import reduce
 from datetime import datetime
@@ -39,7 +39,7 @@ class Directory(BaseItem):
 
 
 class Finder:
-    def find_books_in_system(self, path: str, dir_name: str = None) -> Optional[Directory, dict]:
+    def find_books_in_system(self, path: str, dir_name: str = None) -> Union[Directory, dict]:
         """ Finds all the books for given path.
         :return None if path is wrong.
         :return Folder instance
