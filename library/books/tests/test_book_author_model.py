@@ -37,7 +37,7 @@ class BookTest(TestCase):
     def test_book_create(self):
         book = Book(title='Capital in the Twenty-First Century',
                     size=10, path='SomeFolder/AnotherFolder/Book.fb2',
-                    time_of_adding_to_system='2020-11-24',
+                    file_creation_time='2020-11-24',
                     rate=5, have_read=True, is_favorite=True,
                     review='Very interesting', folder=Folder.objects.get(pk=1))
         book.save()
@@ -48,7 +48,7 @@ class BookTest(TestCase):
         author = Author.objects.get(name='Thomas', surname='Pikkety')
         book = Book(title='Capital in the Twenty-First Century',
                     size=10, path='SomeFolder/AnotherFolder/Book.fb2',
-                    time_of_adding_to_system='2020-11-24',
+                    file_creation_time='2020-11-24',
                     rate=5, have_read=True, is_favorite=True,
                     review='Very interesting', folder=Folder.objects.get(pk=1))
         book.save()

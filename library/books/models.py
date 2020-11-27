@@ -44,7 +44,7 @@ class Book(models.Model):
     size = models.FloatField(max_length=25)
     path = models.FilePathField()
 
-    time_of_adding_to_system = models.DateTimeField()
+    file_creation_time = models.DateTimeField()
 
     to_read = models.BooleanField(default=False)
     is_favorite = models.BooleanField(default=False)
