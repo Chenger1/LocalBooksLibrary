@@ -1,5 +1,6 @@
 from typing import Optional, List
 from dataclasses import dataclass, field
+from functools import reduce
 import os
 
 
@@ -19,6 +20,9 @@ class Book(BaseItem):
 class Folder(BaseItem):
     includes: List[Book] = field(default_factory=list)  # contains books
     subfolders: List['Folder'] = field(default_factory=list)  # contains subfolders
+
+    def size_counter(self):
+        self.size = reduce(lambda x, y: x + y.size, self.includes, self.includes[0].size)
 
 
 class Finder:
@@ -47,7 +51,7 @@ class Finder:
                     folder.subfolders.append(self.find_books_in_system(item_path, item))
                 else:
                     continue
-
+        folder.size_counter()
         return folder
 
     @staticmethod
