@@ -21,7 +21,7 @@ class BaseItem:
         """
 
         unix_time = os.path.getctime(self.path)
-        return datetime.utcfromtimestamp(unix_time).strftime('%Y-%m-%d %H:%M:%S')
+        return datetime.utcfromtimestamp(unix_time).strftime('%Y-%m-%d')
 
 
 @dataclass
