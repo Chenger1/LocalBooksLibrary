@@ -10,11 +10,6 @@ class BaseItem:
     name: str
     path: str  # file path
     size: float
-
-
-@dataclass
-class Book(BaseItem):
-    extension: str  # format: pdf, fb2, epub, etc
     file_creation_time: str = None
 
     def __post_init__(self):
@@ -27,6 +22,11 @@ class Book(BaseItem):
 
         unix_time = os.path.getctime(self.path)
         return datetime.utcfromtimestamp(unix_time).strftime('%Y-%m-%d %H:%M:%S')
+
+
+@dataclass
+class Book(BaseItem):
+    extension: str = None  # format: pdf, fb2, epub, etc
 
 
 @dataclass
