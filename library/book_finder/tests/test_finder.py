@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from book_finder.services.finder import Finder
+from book_finder.services.finder import Finder, Directory
 
 
 class FinderTest(TestCase):
@@ -10,4 +10,4 @@ class FinderTest(TestCase):
     def test_finder_path(self):
         finder = Finder()
         res = finder.find_books_in_system(self.path2)
-        self.assertIsInstance(res, Folder)
+        self.assertIsInstance(res, Directory)

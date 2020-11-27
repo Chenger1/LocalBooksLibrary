@@ -28,17 +28,18 @@ class Book(BaseItem):
         unix_time = os.path.getctime(self.path)
         return datetime.utcfromtimestamp(unix_time).strftime('%Y-%m-%d %H:%M:%S')
 
+
 @dataclass
-class Folder(BaseItem):
+class Directory(BaseItem):
     includes: List[Book] = field(default_factory=list)  # contains books
-    subfolders: List['Folder'] = field(default_factory=list)  # contains subfolders
+    subdir: List['Directory'] = field(default_factory=list)  # contains subfolders
 
     def size_counter(self):
         self.size = reduce(lambda x, y: x + y.size, self.includes, self.includes[0].size)
 
 
 class Finder:
-    def find_books_in_system(self, path: str, dir_name: str = 'LocalLibraryBaseDir') -> Optional[Folder]:
+    def find_books_in_system(self, path: str, dir_name: str = 'LocalLibraryBaseDir') -> Optional[Directory]:
         """ Finds all the books for given path.
         :return None if path is wrong.
         :return Folder instance
@@ -49,7 +50,7 @@ class Finder:
         except FileNotFoundError:
             return None
         else:
-            folder = Folder(name=dir_name, path='', includes=[], size=0)
+            directory = Directory(name=dir_name, path='', includes=[], size=0)
 
             for item in item_to_scan:
                 item_path = f'{path}\\{item}'
@@ -58,15 +59,15 @@ class Finder:
                 if os.path.isfile(item_path) and self._file_extension_checker(item_extension):
                     book = Book(name=item_name, path=item_path,
                                 extension=item_extension, size=os.path.getsize(item_path) / 1000000)
-                    folder.includes.append(book)
+                    directory.includes.append(book)
 
                 elif os.path.isdir(item_path) and not item.startswith('.'):
-                    folder.subfolders.append(self.find_books_in_system(item_path, item))
+                    directory.subdir.append(self.find_books_in_system(item_path, item))
 
                 else:
                     continue
-        folder.size_counter()
-        return folder
+        directory.size_counter()
+        return directory
 
     @staticmethod
     def _file_extension_checker(ext: str) -> bool:
