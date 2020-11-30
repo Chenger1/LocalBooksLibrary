@@ -44,7 +44,7 @@ class Book(models.Model):
 
     title = models.CharField(max_length=250)
     size = models.FloatField(max_length=25)
-    path = models.FileField()
+    path = models.CharField(max_length=100)  # Only while developing
 
     file_creation_time = models.DateTimeField()
 
