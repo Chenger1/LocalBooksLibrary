@@ -8,7 +8,8 @@ class Saver:
         new_folder = Folder.objects.create(name=directory.name,
                                            parent_folder=parent_folder,
                                            size=directory.size,
-                                           created=directory.file_creation_time)
+                                           created=directory.file_creation_time,
+                                           is_top_folder=False if parent_folder else True)
         if directory.includes:  # if directory contains book - save them
             self._save_book_instances_to_db(new_folder, directory.includes)
 
