@@ -10,6 +10,8 @@ class Folder(models.Model):
 
     created = models.DateTimeField()
 
+    is_top_folder = models.BooleanField(default=False)
+
     class Meta:
         ordering = ['name', 'books']
         db_table = 'folder'
@@ -42,7 +44,7 @@ class Book(models.Model):
 
     title = models.CharField(max_length=250)
     size = models.FloatField(max_length=25)
-    path = models.FilePathField()
+    path = models.FileField()
 
     file_creation_time = models.DateTimeField()
 
