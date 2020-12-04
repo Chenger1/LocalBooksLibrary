@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 class Folder(models.Model):
@@ -11,6 +12,9 @@ class Folder(models.Model):
     created = models.DateTimeField()
 
     is_top_folder = models.BooleanField(default=False)
+
+    def get_absolute_url(self):
+        return reverse('books:list_books', args=[self.pk])
 
     class Meta:
         ordering = ['name', 'books']
