@@ -68,6 +68,8 @@ class Book(models.Model):
     folder = models.ForeignKey(Folder, on_delete=models.CASCADE,
                                related_name='books')
 
+    extension = models.CharField(max_length=20)
+
     class Meta:
         ordering = ['title']
         db_table = 'book'
