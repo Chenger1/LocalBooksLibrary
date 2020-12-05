@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}Library{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-2">
+                Title
+            </div>
+
+            <div class="col-10">
+                <!-- Lists all folder and books-->
+
+                <div class="row">
+                    <h3>
+                        {% if parent_folder %}
+                                <a href="{{ parent_folder.get_absolute_url }}">&#8592</a>
+                        {% else %}
+                            &#8592
+                        {% endif %}
+                    </h3>
+                    <h3>
+                        {% if next_folder %}
+                                <a href="{{ next_folder.get_absolute_url }}">&#8594</a>
+                        {% else %}
+                            &#8594
+                        {% endif %}
+                    </h3>
+
+                    <h3>{{ folder.name }}</h3>
+                </div>
+                <div class="row">
+                    <table class="table">
+                        <tr>
+                            <td>Name</td>
+                            <td>Date read/modified</td>
+                            <td>Type</td>
+                            <td>Size</td>
+                        </tr>
+                        {% for subdir in subdirs %}
+                            <tr>
+                                <td><a href="{{ subdir.get_absolute_url }}">{{ subdir.name }}</a></td>
+                                <td>{{ subdir.created }}</td>
+                                <td>File folder</td>
+                                <td>{{ subdir.size }}</td>
+                            </tr>
+                        {% endfor %}
+
+                        {% for book in books %}
+                            <tr>
+                                <td>{{ book.title }}</td>
+                                <td>{{ book.last_read_time }}</td>
+                                <td>{{ book.extension }}</td>
+                                <td>{{ book.size }}</td>
+                            </tr>
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
