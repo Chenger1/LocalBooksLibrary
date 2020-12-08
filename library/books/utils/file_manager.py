@@ -1,7 +1,7 @@
 from typing import Tuple
 
 
-class FileManager:
+class StructureManager:
     """
         Stores information about opened folders.
         It uses when user tries to move though file system

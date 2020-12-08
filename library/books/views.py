@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404
 
 from .models import Folder
 
-from books.utils.file_manager import FileManager
+from books.utils.file_manager import StructureManager
 from books.utils.subfolders_utils import get_folders
 
 
@@ -17,12 +17,12 @@ class ListBooksView(View):
         else:
             folder = get_object_or_404(Folder, is_top_folder=True)
 
-        FileManager.update_level(folder.pk, folder.parent_folder_id)
+        StructureManager.update_level(folder.pk, folder.parent_folder_id)
 
         subdirs = folder.subfolders.get_queryset().all()
         books = folder.books.get_queryset().all()
 
-        parent_folder_id, next_folder_id = FileManager.get_folders(folder.pk)
+        parent_folder_id, next_folder_id = StructureManager.get_folders(folder.pk)
 
         parent_folder = get_folders(parent_folder_id)
         next_folder = get_folders(next_folder_id)
