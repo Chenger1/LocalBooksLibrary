@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404
 
 from .models import Folder
 
-from books.utils.file_manager import StructureManager
+from books.utils.structure_manager import StructureManager
 from books.utils.subfolders_utils import get_folders
 
 
