@@ -49,5 +49,5 @@ def check_books_folder_last_update(file_path: str) -> bool:
         if last_time_update != info['last_time_update']:
             return False
         return True
-    except KeyError:
+    except (KeyError, TypeError):
         return False
