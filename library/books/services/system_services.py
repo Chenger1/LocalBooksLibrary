@@ -38,8 +38,11 @@ def check_books_folder_last_update(file_path: str) -> bool:
     with open(file_path, 'r', encoding='utf-8') as file:
         info = json.load(file)
 
-    last_time_update = transform_unix_time(os.path.getmtime(info['folder_path']), True)
+    try:
+        last_time_update = transform_unix_time(os.path.getmtime(info['folder_path']), True)
 
-    if last_time_update != info['last_time_update']:
+        if last_time_update != info['last_time_update']:
+            return False
+        return True
+    except KeyError:
         return False
-    return True
