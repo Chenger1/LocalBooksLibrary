@@ -6,7 +6,7 @@ from django.conf import settings
 
 def init_system_data_file() -> str:
     """
-    system_data file contains information about last book`s folder update.
+    system_data file contains information about book`s folder
 
         Firstly check if file exists, if not: creates it
         :returns folder`s path
@@ -18,7 +18,3 @@ def init_system_data_file() -> str:
             json.dump([], file)
 
     return path
-
-
-def check_books_folder_last_update(path: str):
-    pass
