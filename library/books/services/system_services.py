@@ -18,3 +18,7 @@ def init_system_data_file() -> str:
             json.dump([], file)
 
     return path
+
+
+def check_books_folder_last_update(path: str):
+    pass

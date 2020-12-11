@@ -1,8 +1,9 @@
 from typing import Union, List
 from dataclasses import dataclass, field
 from functools import reduce
-from datetime import datetime
 import os
+
+from common.system_data import transform_unix_time
 
 
 @dataclass
@@ -21,7 +22,7 @@ class BaseItem:
         """
 
         unix_time = os.path.getctime(self.path)
-        return datetime.utcfromtimestamp(unix_time).strftime('%Y-%m-%d')
+        return transform_unix_time(unix_time)
 
 
 @dataclass
