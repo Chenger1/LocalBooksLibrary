@@ -17,7 +17,7 @@ class Saver:
             for subdir in directory.subdir:
                 self.save_structure_to_db(subdir, parent_folder=new_folder)
 
-        return {'status': 'OK'}
+        return {'status': 200}
 
     @staticmethod
     def _save_book_instances_to_db(parent_folder: Folder, books: list):
