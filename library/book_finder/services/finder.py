@@ -22,7 +22,7 @@ class BaseItem:
         """
 
         unix_time = os.path.getctime(self.path)
-        return transform_unix_time(unix_time)
+        return transform_unix_time(unix_time, False)
 
 
 @dataclass
