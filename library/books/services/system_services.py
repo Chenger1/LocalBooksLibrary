@@ -27,6 +27,12 @@ def write_data_to_file(data: dict, file: str):
         json.dump(data, file)
 
 
+def get_data_from_file(file: str) -> dict:
+    with open(file, 'r', encoding='utf-8') as file:
+        data = json.load(file)
+    return data
+
+
 def check_books_folder_last_update(file_path: str) -> bool:
     """
         Check last book`s folder update time and compares it with saved in json data.
@@ -35,8 +41,7 @@ def check_books_folder_last_update(file_path: str) -> bool:
     :param file_path:
     :return: bool
     """
-    with open(file_path, 'r', encoding='utf-8') as file:
-        info = json.load(file)
+    info = get_data_from_file(file_path)
 
     try:
         last_time_update = transform_unix_time(os.path.getmtime(info['folder_path']), True)
