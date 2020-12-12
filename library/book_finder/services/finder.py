@@ -36,11 +36,14 @@ class Directory(BaseItem):
     subdir: List['Directory'] = field(default_factory=list)  # contains subfolders
 
     def size_counter(self):
-        self.size = reduce(lambda x, y: x + y.size, self.includes, self.includes[0].size)
+        self.size = 0
+        for arg in [self.includes, self.subdir]:
+            self.size += reduce(lambda x, y: x + y.size, arg, arg[0].size)
 
 
 class Finder:
-    def find_books_in_system(self, path: str, dir_name: str = None) -> Union[Directory, dict]:
+    @classmethod
+    def find_books_in_system(cls, path: str, dir_name: str = None) -> Union[Directory, dict]:
         """ Finds all the books for given path.
         :return None if path is wrong.
         :return Folder instance
@@ -60,13 +63,13 @@ class Finder:
                 *item_name_parts, item_extension = item.split('.')
                 item_name = ''.join(item_name_parts)
 
-                if os.path.isfile(item_path) and self._file_extension_checker(item_extension):
+                if os.path.isfile(item_path) and cls._file_extension_checker(item_extension):
                     book = Book(name=item_name, path=item_path,
                                 extension=item_extension, size=os.path.getsize(item_path) / 1000000)
                     directory.includes.append(book)
 
                 elif os.path.isdir(item_path) and not item.startswith('.'):
-                    directory.subdir.append(self.find_books_in_system(item_path, item))
+                    directory.subdir.append(cls.find_books_in_system(item_path, item))
 
                 else:
                     continue
