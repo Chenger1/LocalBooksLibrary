@@ -56,7 +56,7 @@ class Finder:
         except FileNotFoundError:
             return {'status': 'Wrong path'}
         else:
-            directory = Directory(name=dir_name or path.split('\\')[0], path=path, includes=[], size=0)
+            directory = Directory(name=dir_name or path.split('\\')[-1], path=path, includes=[], size=0)
 
             for item in item_to_scan:
                 item_path = f'{path}\\{item}'
