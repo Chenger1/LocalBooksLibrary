@@ -38,7 +38,8 @@ class Directory(BaseItem):
     def size_counter(self):
         self.size = 0
         for arg in [self.includes, self.subdir]:
-            self.size += reduce(lambda x, y: x + y.size, arg, arg[0].size)
+            if arg:
+                self.size += reduce(lambda x, y: x + y.size, arg, arg[0].size)
 
 
 class Finder:
