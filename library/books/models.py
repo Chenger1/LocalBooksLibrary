@@ -17,7 +17,7 @@ class Folder(models.Model):
         return reverse('books:list_books', args=[self.pk])
 
     class Meta:
-        ordering = ['name', 'books']
+        ordering = ['name']
         db_table = 'folder'
 
 

@@ -21,8 +21,8 @@ class Saver:
         return {'status': 200}
 
     @staticmethod
-    def _save_book_instances_to_db(parent_folder: Folder, books: list):
+    def _save_book_instances_to_db(folder: Folder, books: list):
         for book in books:
             Book.objects.create(title=book.name, size=book.size,
                                 path=book.path, file_creation_time=book.file_creation_time,
-                                rate=1, folder=parent_folder, extension=book.extension)
+                                rate=1, folder=folder, extension=book.extension)
