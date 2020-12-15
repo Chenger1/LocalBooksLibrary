@@ -2,6 +2,7 @@ from typing import Union, List
 from dataclasses import dataclass, field
 from functools import reduce
 import os
+import datetime
 
 from common.system_data import transform_unix_time
 
@@ -11,18 +12,18 @@ class BaseItem:
     name: str
     path: str  # file path
     size: float
-    file_creation_time: str = None
+    file_creation_time: datetime = None
 
     def __post_init__(self):
         self.file_creation_time = self._get_file_creation_time()
 
-    def _get_file_creation_time(self):
+    def _get_file_creation_time(self) -> datetime:
         """Transform unix type time into common.
         Not a part of the public API
         """
 
         unix_time = os.path.getctime(self.path)
-        return transform_unix_time(unix_time, False)
+        return transform_unix_time(unix_time)
 
 
 @dataclass
