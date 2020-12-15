@@ -1,13 +1,11 @@
 from django.shortcuts import render
 from django.views.generic import View
 from django.shortcuts import redirect
-from django.core.exceptions import ObjectDoesNotExist
-
-from .models import Folder
 
 from books.utils.structure_manager import StructureManager
 from books.utils.subfolders_utils import get_folders
-from books.services.system_services import init_system_data_file, check_books_folder_last_update, get_data_from_file
+from books.services.system_services import check_books_folder_last_update
+
 from books.services.save_data_to_db import Saver
 
 from book_finder.services.finder import Finder
@@ -45,14 +43,15 @@ class ListBooksView(View):
 
 class CheckFoldersUpdate(View):
     def get(self, request):
-        file = init_system_data_file()
-        if not check_books_folder_last_update(file):
-            data = get_data_from_file(file)
-            if data:
-                self.save_folders(data['folder_path'])
-            else:
-                return redirect('books:list_top_folder')
+        if not check_books_folder_last_update():
+            folder_path = get_folders(is_top_folder=True).path
+            if folder_path:
+                self.save_folders(folder_path)
 
+        return redirect('books:list_top_folder')
+
+    def post(self, request):
+        self.save_folders(request.POST['folder_path'])
         return redirect('books:list_top_folder')
 
     @staticmethod
