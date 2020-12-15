@@ -17,14 +17,12 @@ class ListBooksView(View):
     template = 'books/list.html'
 
     def get(self, request, dir_id=None):
-        try:
-            if dir_id:
-                folder = Folder.objects.get(id=dir_id)
-            else:
-                folder = Folder.objects.get(is_top_folder=True)
-        except ObjectDoesNotExist:
-            return render(request, self.template, {'folder': None})
+        if dir_id:
+            folder = get_folders(folder_id=dir_id)
         else:
+            folder = get_folders(is_top_folder=True)
+
+        if folder:
             StructureManager.update_level(folder.pk, folder.parent_folder_id)
 
             subdirs = folder.subfolders.get_queryset().all()
@@ -41,6 +39,8 @@ class ListBooksView(View):
                                                    'parent_folder': parent_folder,
                                                    'next_folder': next_folder
                                                    })
+        else:
+            return render(request, self.template, {'folder': None})
 
 
 class CheckFoldersUpdate(View):
