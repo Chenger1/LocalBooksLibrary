@@ -11,7 +11,8 @@ class Saver:
                                            parent_folder=parent_folder,
                                            size=directory.size,
                                            created=directory.file_creation_time,
-                                           is_top_folder=False if parent_folder else True)
+                                           is_top_folder=False if parent_folder else True,
+                                           path=directory.path)
         if directory.includes:  # if directory contains book - save them
             cls._save_book_instances_to_db(new_folder, directory.includes)
 
