@@ -12,6 +12,7 @@ class Folder(models.Model):
     created = models.DateTimeField()
 
     is_top_folder = models.BooleanField(default=False)
+    path = models.FilePathField()
 
     def get_absolute_url(self):
         return reverse('books:list_books', args=[self.pk])
@@ -48,7 +49,7 @@ class Book(models.Model):
 
     title = models.CharField(max_length=250)
     size = models.FloatField(max_length=25)
-    path = models.CharField(max_length=100)  # Only while developing
+    path = models.FilePathField()
 
     file_creation_time = models.DateTimeField()
 
