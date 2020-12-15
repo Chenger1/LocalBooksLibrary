@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import View
-from django.shortcuts import get_object_or_404, redirect
-from django.shortcuts import HttpResponse
+from django.shortcuts import redirect
+from django.core.exceptions import ObjectDoesNotExist
 
 from .models import Folder
 
@@ -17,35 +17,45 @@ class ListBooksView(View):
     template = 'books/list.html'
 
     def get(self, request, dir_id=None):
-        if dir_id:
-            folder = get_object_or_404(Folder, id=dir_id)
+        try:
+            if dir_id:
+                folder = Folder.objects.get(id=dir_id)
+            else:
+                folder = Folder.objects.get(is_top_folder=True)
+        except ObjectDoesNotExist:
+            return render(request, self.template, {'folder': None})
         else:
-            folder = get_object_or_404(Folder, is_top_folder=True)
+            StructureManager.update_level(folder.pk, folder.parent_folder_id)
 
-        StructureManager.update_level(folder.pk, folder.parent_folder_id)
+            subdirs = folder.subfolders.get_queryset().all()
+            books = folder.books.get_queryset().all()
 
-        subdirs = folder.subfolders.get_queryset().all()
-        books = folder.books.get_queryset().all()
+            parent_folder_id, next_folder_id = StructureManager.get_folders(folder.pk)
 
-        parent_folder_id, next_folder_id = StructureManager.get_folders(folder.pk)
+            parent_folder = get_folders(parent_folder_id)
+            next_folder = get_folders(next_folder_id)
 
-        parent_folder = get_folders(parent_folder_id)
-        next_folder = get_folders(next_folder_id)
-
-        return render(request, self.template, {'folder': folder,
-                                               'subdirs': subdirs,
-                                               'books': books,
-                                               'parent_folder': parent_folder,
-                                               'next_folder': next_folder
-                                               })
+            return render(request, self.template, {'folder': folder,
+                                                   'subdirs': subdirs,
+                                                   'books': books,
+                                                   'parent_folder': parent_folder,
+                                                   'next_folder': next_folder
+                                                   })
 
 
 class CheckFoldersUpdate(View):
     def get(self, request):
         file = init_system_data_file()
-        if check_books_folder_last_update(file):
-            folder_path = get_data_from_file()
-            data = Finder.find_books_in_system(folder_path)
-            Saver.save_structure_to_db(data)
+        if not check_books_folder_last_update(file):
+            data = get_data_from_file(file)
+            if data:
+                self.save_folders(data['folder_path'])
+            else:
+                return redirect('books:list_top_folder')
 
         return redirect('books:list_top_folder')
+
+    @staticmethod
+    def save_folders(folder_path: str):
+        directory = Finder.find_books_in_system(folder_path)
+        Saver.save_structure_to_db(directory)
