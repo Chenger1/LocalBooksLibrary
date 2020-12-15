@@ -4,60 +4,79 @@
 
 {% block content %}
     <div class="container">
-        <div class="row">
-            <div class="col-2">
-                Title
-            </div>
-
-            <div class="col-10">
-                <!-- Lists all folder and books-->
-
-                <div class="row">
-                    <h3>
-                        {% if parent_folder %}
-                                <a href="{{ parent_folder.get_absolute_url }}">&#8592</a>
-                        {% else %}
-                            &#8592
-                        {% endif %}
-                    </h3>
-                    <h3>
-                        {% if next_folder %}
-                                <a href="{{ next_folder.get_absolute_url }}">&#8594</a>
-                        {% else %}
-                            &#8594
-                        {% endif %}
-                    </h3>
-
-                    <h3>{{ folder.name }}</h3>
+        {% if folder %}
+            <div class="row">
+                <div class="col-2">
+                    Title
                 </div>
-                <div class="row">
-                    <table class="table">
-                        <tr>
-                            <td>Name</td>
-                            <td>Date read/modified</td>
-                            <td>Type</td>
-                            <td>Size</td>
-                        </tr>
-                        {% for subdir in subdirs %}
-                            <tr>
-                                <td><a href="{{ subdir.get_absolute_url }}">{{ subdir.name }}</a></td>
-                                <td>{{ subdir.created }}</td>
-                                <td>File folder</td>
-                                <td>{{ subdir.size }}</td>
-                            </tr>
-                        {% endfor %}
 
-                        {% for book in books %}
+                <div class="col-10">
+                    <!-- Lists all folder and books-->
+
+                    <div class="row">
+                        <h3>
+                            {% if parent_folder %}
+                                    <a href="{{ parent_folder.get_absolute_url }}">&#8592</a>
+                            {% else %}
+                                &#8592
+                            {% endif %}
+                        </h3>
+                        <h3>
+                            {% if next_folder %}
+                                    <a href="{{ next_folder.get_absolute_url }}">&#8594</a>
+                            {% else %}
+                                &#8594
+                            {% endif %}
+                        </h3>
+
+                        <h3>{{ folder.name }}</h3>
+                    </div>
+                    <div class="row">
+                        <table class="table">
                             <tr>
-                                <td>{{ book.title }}</td>
-                                <td>{{ book.last_read_time }}</td>
-                                <td>{{ book.extension }}</td>
-                                <td>{{ book.size }}</td>
+                                <td>Name</td>
+                                <td>Date read/modified</td>
+                                <td>Type</td>
+                                <td>Size</td>
                             </tr>
-                        {% endfor %}
-                    </table>
+                            {% for subdir in subdirs %}
+                                <tr>
+                                    <td><a href="{{ subdir.get_absolute_url }}">{{ subdir.name }}</a></td>
+                                    <td>{{ subdir.created }}</td>
+                                    <td>File folder</td>
+                                    <td>{{ subdir.size }}</td>
+                                </tr>
+                            {% endfor %}
+
+                            {% for book in books %}
+                                <tr>
+                                    <td>{{ book.title }}</td>
+                                    <td>{{ book.last_read_time }}</td>
+                                    <td>{{ book.extension }}</td>
+                                    <td>{{ book.size }}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
+        {% else %}
+            <div class="row">
+                <div class="col-6" style="margin: 20% auto;">
+                    <div class="form-group" style="text-align: center;">
+                        <form action="{% url 'books:save_data' %}" method="post">
+                            {% csrf_token %}
+                            <label for="folder_path">Path to folder with books</label>
+                            <input type="text" placeholder="Path" name="folder_path" id="folder_path" class="form-control"
+                            aria-describedby="pathHelp">
+                            <small id="pathHelp" class="form-text text-muted">It looks like this: "C://Users/Personal//Books"</small>
+
+                            <button type="submit" class="btn btn-primary" style="margin-top: 15px;">Submit</button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        {% endif %}
     </div>
 {% endblock %}
