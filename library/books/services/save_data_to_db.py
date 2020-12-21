@@ -24,6 +24,21 @@ class Saver:
     @staticmethod
     def _save_book_instances_to_db(folder: Folder, books: list):
         for book in books:
-            Book.objects.create(title=book.name, size=book.size,
-                                path=book.path, file_creation_time=book.file_creation_time,
-                                rate=1, folder=folder, extension=book.extension)
+            book_inst, is_created = Book.objects.get_or_create(title=book.name,
+                                                               file_creation_time=book.file_creation_time,
+                                                               extension=book.extension,
+                                                               defaults={'size': book.size,
+                                                                         'path': book.path,
+                                                                         'rate': 1,
+                                                                         'folder': folder,
+                                                                         })
+            if not is_created:
+                book_inst.folder = folder
+                book_inst.path = book.path
+                book_inst.size = book.size
+                book_inst.save()
+
+    @staticmethod
+    def clear_folders_structure():
+        Folder.objects.all().delete()
+

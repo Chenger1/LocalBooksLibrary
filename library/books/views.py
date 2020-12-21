@@ -4,7 +4,6 @@ from django.shortcuts import redirect
 
 from books.utils.structure_manager import StructureManager
 from books.utils.subfolders_utils import get_folders
-from books.services.system_services import check_books_folder_last_update
 
 from books.services.save_data_to_db import Saver
 
@@ -43,10 +42,10 @@ class ListBooksView(View):
 
 class CheckFoldersUpdate(View):
     def get(self, request):
-        if not check_books_folder_last_update():
-            folder_path = get_folders(is_top_folder=True).path
-            if folder_path:
-                self.save_folders(folder_path)
+        folder_path = get_folders(is_top_folder=True).path
+        if folder_path:
+            Saver.clear_folders_structure()
+            self.save_folders(folder_path)
 
         return redirect('books:list_top_folder')
 
