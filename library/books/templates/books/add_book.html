@@ -7,7 +7,7 @@
         <div class="row">
             <div class="col-12">
                 <h2>Choose book/books to add</h2>
-                <form action="{% url 'books:add_new_book_post' %}" method="post">
+                <form action="{% url 'books:add_new_book_post' %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="row">
                         <div class="col-6">
