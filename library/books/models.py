@@ -21,6 +21,8 @@ class Folder(models.Model):
         ordering = ['name']
         db_table = 'folder'
 
+    def __str__(self):
+        return self.name
 
 class Author(models.Model):
     name = models.CharField(max_length=250)
