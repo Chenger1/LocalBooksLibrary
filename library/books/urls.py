@@ -12,4 +12,6 @@ urlpatterns = [
     path('check_folder_for_update/', views.CheckFoldersUpdate.as_view(), name='check_folder_for_update'),
     path('save_data/', views.CheckFoldersUpdate.as_view(),
          name='save_data'),
+    path('add_book/', views.AddNewBook.as_view(), name='add_new_book'),
+    path('add_book_post/', views.AddNewBook.as_view(), name='add_new_book_post'),
 ]
