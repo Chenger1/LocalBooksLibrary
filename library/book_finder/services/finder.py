@@ -83,3 +83,12 @@ class Finder:
         """Not a part of the public API"""
         extensions = '.pdf.fb2.txt.doc.docx.epub.djvu'
         return ext in extensions
+
+    @classmethod
+    def create_book_instance(cls, book_path: str) -> Book:
+        *item_name_parts, item_extension = book_path.split('.')
+        item_name_parts = ''.join(item_name_parts)
+        item_name = ''.join(item_name_parts.split('\\')[-1])
+        book = Book(name=item_name, path=book_path,
+                    extension=item_extension, size=os.path.getsize(book_path) / 1000000)
+        return book
