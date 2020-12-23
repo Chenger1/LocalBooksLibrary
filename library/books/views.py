@@ -11,6 +11,8 @@ from book_finder.services.finder import Finder
 
 from books.forms import AddNewBookForm
 
+from common.system_data import move_file_to_folder
+
 from tkinter import Tk, filedialog
 
 
@@ -79,3 +81,14 @@ class AddNewBook(View):
 
         return render(request, self.template, {'form': form,
                                                'books': books})
+
+    def post(self, request):
+        folder = get_folders(request.POST['folders'])
+        books = request.POST.getlist('books')
+
+        for book in books:
+            new_book_path = move_file_to_folder(book, folder.path)
+            book = Finder.create_book_instance(new_book_path)
+            Saver.save_book_in_folder(book, folder)
+
+        return redirect('books:list_top_folder')
