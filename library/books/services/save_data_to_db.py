@@ -1,6 +1,7 @@
 from books.models import Folder, Author, Book
 
 from book_finder.services.finder import Directory
+from book_finder.services.finder import Book as BookClass
 
 
 class Saver:
@@ -42,3 +43,9 @@ class Saver:
     def clear_folders_structure():
         Folder.objects.all().delete()
 
+    @classmethod
+    def save_book_in_folder(cls, book: BookClass, folder: Folder) -> BookClass:
+        book_inc = Book.objects.create(title=book.name, file_creation_time=book.file_creation_time,
+                                       extension=book.extension, size=book.size, path=book.path,
+                                       rate=1, folder=folder)
+        return book_inc
