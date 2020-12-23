@@ -1,5 +1,6 @@
 from datetime import datetime
 import pytz
+import shutil
 
 utc = pytz.UTC
 
@@ -16,3 +17,6 @@ def transform_unix_time(unix_time: float) -> datetime:
 def transform_to_utc(naive_datetime: datetime) -> datetime:
     return naive_datetime.replace(tzinfo=utc)
 
+
+def move_file_to_folder(file_path: str, folder_path: str) -> str:
+    return shutil.move(file_path, folder_path)
