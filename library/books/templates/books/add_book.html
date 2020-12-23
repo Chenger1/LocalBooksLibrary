@@ -12,14 +12,24 @@
                     <div class="row">
                         <div class="col-6">
                             <h4>Books/Book</h4>
-                            {{ form.book_file_path }}
+                            <a href="{% url 'books:add_new_book_with_filedialog' %}">Choose books</a>
+
+                            <div>
+                                <ul>
+                                    {% for book in books %}
+                                        <li>{{book}}</li>
+                                    {% empty %}
+                                        <li>You don`t choose any one</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
                         </div>
                         <div class="col-6">
                             <h4>Move to...</h4>
                             {{ form.folders }}
                         </div>
                     </div>
-
+                    <input type="hidden" name="books" value="{{ books }}">
                     <input type="submit" class="btn btn-primary" value="Submit"
                     style="margin-top: 20px;">
                 </form>

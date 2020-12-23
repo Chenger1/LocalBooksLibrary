@@ -9,6 +9,10 @@ from books.services.save_data_to_db import Saver
 
 from book_finder.services.finder import Finder
 
+from books.forms import AddNewBookForm
+
+from tkinter import Tk, filedialog
+
 
 class ListBooksView(View):
     template = 'books/list.html'
@@ -57,3 +61,21 @@ class CheckFoldersUpdate(View):
     def save_folders(folder_path: str):
         directory = Finder.find_books_in_system(folder_path)
         Saver.save_structure_to_db(directory)
+
+
+class AddNewBook(View):
+    template = 'books/add_book.html'
+
+    def get(self, request, open_filedialog=False):
+        books = None
+        if open_filedialog:
+            tk = Tk()
+            tk.attributes('-topmost', True)
+            tk.withdraw()
+            books = filedialog.askopenfilenames()
+            tk.destroy()
+
+        form = AddNewBookForm()
+
+        return render(request, self.template, {'form': form,
+                                               'books': books})

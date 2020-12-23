@@ -13,5 +13,7 @@ urlpatterns = [
     path('save_data/', views.CheckFoldersUpdate.as_view(),
          name='save_data'),
     path('add_book/', views.AddNewBook.as_view(), name='add_new_book'),
+    path('add_book_with_filedialog/', views.AddNewBook.as_view(), {'open_filedialog': True},
+         name='add_new_book_with_filedialog'),
     path('add_book_post/', views.AddNewBook.as_view(), name='add_new_book_post'),
 ]
