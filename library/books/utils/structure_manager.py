@@ -1,5 +1,7 @@
 from typing import Tuple
 
+from books.models import Folder
+
 
 class StructureManager:
     """
@@ -58,3 +60,11 @@ class StructureManager:
 
         return (cls.structure[current_folder_id].get('parent_folder', None),
                 cls.structure[current_folder_id].get('next_folder', None))
+
+    @classmethod
+    def get_full_folder_nesting(cls, folder: Folder) -> list:
+        nesting = [folder]
+        if folder.is_top_folder:
+            return nesting
+        nesting.extend(cls.get_full_folder_nesting(folder.parent_folder))
+        return nesting

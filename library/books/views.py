@@ -36,11 +36,14 @@ class ListBooksView(View):
             parent_folder = get_folders(parent_folder_id)
             next_folder = get_folders(next_folder_id)
 
+            folder_nesting = list(reversed(StructureManager.get_full_folder_nesting(folder)))
+
             return render(request, self.template, {'folder': folder,
                                                    'subdirs': subdirs,
                                                    'books': books,
                                                    'parent_folder': parent_folder,
-                                                   'next_folder': next_folder
+                                                   'next_folder': next_folder,
+                                                   'folder_nesting': folder_nesting
                                                    })
         else:
             return render(request, self.template, {'folder': None})
