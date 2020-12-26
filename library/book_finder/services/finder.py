@@ -82,7 +82,7 @@ class Finder:
     def _file_extension_checker(ext: str) -> bool:
         """Not a part of the public API"""
         extensions = '.pdf.fb2.txt.doc.docx.epub.djvu'
-        return ext in extensions
+        return ext.lower() in extensions
 
     @classmethod
     def create_book_instance(cls, book_path: str) -> Book:
