@@ -16,4 +16,6 @@ urlpatterns = [
     path('add_book_with_filedialog/', views.AddNewBook.as_view(), {'open_filedialog': True},
          name='add_new_book_with_filedialog'),
     path('add_book_post/', views.AddNewBook.as_view(), name='add_new_book_post'),
+    path('search/', views.SearchView.as_view(), name='search'),
+
 ]

@@ -95,3 +95,13 @@ class AddNewBook(View):
             Saver.save_book_in_folder(book, folder)
 
         return redirect('books:list_top_folder')
+
+
+class SearchView(View):
+    def post(self, request):
+        search_query = request.POST['search_query']
+        folder = get_folders(folder_name=search_query)
+        if folder:
+            return redirect('books:list_books', dir_id=folder.pk)
+        else:
+            return redirect('books:not_found', info_to_display=search_query)
