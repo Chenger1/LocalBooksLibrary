@@ -14,40 +14,33 @@
                     <!-- Lists all folder and books-->
 
                     <div class="row">
-                        <div class="col-4">
-                            <div class="row">
-                                <h3>
-                                    {% if parent_folder %}
-                                        <a href="{{ parent_folder.get_absolute_url }}">&#8592</a>
-                                    {% else %}
-                                        &#8592
-                                    {% endif %}
-                                </h3>
-                                <h3>
-                                    {% if next_folder %}
-                                        <a href="{{ next_folder.get_absolute_url }}">&#8594</a>
-                                    {% else %}
-                                        &#8594
-                                    {% endif %}
-                                </h3>
+                        <h3>
+                            {% if parent_folder %}
+                                <a href="{{ parent_folder.get_absolute_url }}">&#8592</a>
+                            {% else %}
+                                &#8592
+                            {% endif %}
+                        </h3>
+                        <h3>
+                            {% if next_folder %}
+                                <a href="{{ next_folder.get_absolute_url }}">&#8594</a>
+                            {% else %}
+                                &#8594
+                            {% endif %}
+                        </h3>
 
-                                <h3>{{ folder.name }}</h3>
-                            </div>
-
-                        </div>
-
-                        <div class="col-6">
-                            {% for folder in folder_nesting %}
-                                {% if forloop.last %}
-                                    {{ folder.name }} /
-                                {% else %}
-                                    <a href="{{ folder.get_absolute_url }}">{{ folder.name }}</a> /
-                                {% endif %}
-                            {% endfor %}
-                        </div>
-
-
+                        <h3>{{ folder.name }}</h3>
                     </div>
+                    <div class="row">
+                        {% for folder in folder_nesting %}
+                            {% if forloop.last %}
+                                {{ folder.name }} /
+                            {% else %}
+                                <a href="{{ folder.get_absolute_url }}">{{ folder.name }}</a> /
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+
                     <div class="row">
                         <table class="table">
                             <tr>
