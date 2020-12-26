@@ -44,7 +44,7 @@ class Saver:
         Folder.objects.all().delete()
 
     @classmethod
-    def save_book_in_folder(cls, book: BookClass, folder: Folder) -> BookClass:
+    def save_book_in_folder(cls, book: BookClass, folder: Folder) -> Book:
         book_inc = Book.objects.create(title=book.name, file_creation_time=book.file_creation_time,
                                        extension=book.extension, size=book.size, path=book.path,
                                        rate=1, folder=folder)
