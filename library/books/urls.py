@@ -17,5 +17,5 @@ urlpatterns = [
          name='add_new_book_with_filedialog'),
     path('add_book_post/', views.AddNewBook.as_view(), name='add_new_book_post'),
     path('search/', views.SearchView.as_view(), name='search'),
-
+    path('now_found/<str:info_to_display>/', views.NotFoundView.as_view(), name='not_found'),
 ]

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Not found{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col" style="text-align: center; margin-top: 50px;">
+                <h2>This "{{ info_to_display }}" not found</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col" style="text-align: center; margin-top: 50px;">
+                <h4>You can try again or return to <a href="{% url 'books:list_top_folder' %}">main</a> page</h4>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -105,3 +105,10 @@ class SearchView(View):
             return redirect('books:list_books', dir_id=folder.pk)
         else:
             return redirect('books:not_found', info_to_display=search_query)
+
+
+class NotFoundView(View):
+    template = 'not_found.html'
+
+    def get(self, request, info_to_display):
+        return render(request, self.template, {'info_to_display': info_to_display})
