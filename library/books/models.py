@@ -28,7 +28,6 @@ class Folder(models.Model):
 class Author(models.Model):
     name = models.CharField(max_length=250)
     surname = models.CharField(max_length=250, blank=True)
-    third_name = models.CharField(max_length=250, blank=True)
 
     class Meta:
         ordering = ['name']
