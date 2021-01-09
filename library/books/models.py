@@ -64,6 +64,7 @@ class Book(models.Model):
 
     author = models.ManyToManyField(Author, related_name='books', blank=True)
     description = models.TextField(max_length=500, blank=True)
+    genre = models.CharField(max_length=50, blank=True)
 
     rate = models.IntegerField(choices=RATE_CHOICES, blank=True)
 
