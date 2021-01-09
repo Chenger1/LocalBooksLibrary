@@ -49,3 +49,18 @@ class Saver:
                                        extension=book.extension, size=book.size, path=book.path,
                                        rate=1, folder=folder)
         return book_inc
+
+    @classmethod
+    def update_book_info(cls, book: BookClass, info_to_update: dict):
+        author = cls.add_author_to_db(info_to_update['author'])
+        book.genre = info_to_update['genre']
+        book.description = info_to_update['annotation']
+        book.author.add(author)
+        book.save()
+
+    @classmethod
+    def add_author_to_db(cls, data) -> Author:
+        author_data = data.split(' ')
+        author_ins, is_created = Author.objects.get_or_create(name=author_data[0], surname=author_data[1])
+
+        return author_ins
