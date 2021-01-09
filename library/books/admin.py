@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Book, Folder
+from .models import Book, Folder, Author
 
 
 @admin.register(Folder)
@@ -12,3 +12,8 @@ class FolderAdmin(admin.ModelAdmin):
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
     list_display = ['title']
+
+
+@admin.register(Author)
+class AuthorAdmin(admin.ModelAdmin):
+    list_display = ['name', 'surname']
