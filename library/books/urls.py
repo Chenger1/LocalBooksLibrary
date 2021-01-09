@@ -18,4 +18,5 @@ urlpatterns = [
     path('add_book_post/', views.AddNewBook.as_view(), name='add_new_book_post'),
     path('search/', views.SearchView.as_view(), name='search'),
     path('now_found/<str:info_to_display>/', views.NotFoundView.as_view(), name='not_found'),
+    path('update_info_about_books/', views.UpdateInfoAboutBooksView.as_view(), name='update_info_about_books'),
 ]
