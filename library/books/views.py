@@ -3,7 +3,7 @@ from django.views.generic import View
 from django.shortcuts import redirect
 
 from books.utils.structure_manager import StructureManager
-from books.utils.subfolders_utils import get_folders
+from books.utils.subfolders_utils import get_folders, get_books
 
 from books.services.save_data_to_db import Saver
 
@@ -12,6 +12,7 @@ from book_finder.services.finder import Finder
 from books.forms import AddNewBookForm
 
 from common.system_data import move_file_to_folder
+from fb2_parser.parser import define_fb2_parser
 
 from tkinter import Tk, filedialog
 
@@ -112,3 +113,14 @@ class NotFoundView(View):
 
     def get(self, request, info_to_display):
         return render(request, self.template, {'info_to_display': info_to_display})
+
+
+class UpdateInfoAboutBooksView(View):
+    def get(self, request):
+        for book in get_books(all_books=True):
+            if book.extension == 'fb2':
+                parser = define_fb2_parser(book.path)
+                book_info = parser.get_info_about_book()
+                Saver.update_book_info(book, book_info)
+
+        return redirect('books:list_books')
