@@ -21,13 +21,18 @@ class FB2Parser:
             element.tag = element.tag.partition('}')[-1]
 
     def get_info_about_book(self) -> dict:
-        info_tags = ['genre', 'author', 'annotation']
+        info_tags = ['genre', 'annotation']
         book_info = {}
         for tag in info_tags:
             tag_text = list(self.root.find(f'.//{tag}').itertext())
             book_info[tag] = ' '.join(normalize_text(tag_text))
-
+        book_info['author'] = self.get_author_info()
         return book_info
+
+    def get_author_info(self) -> str:
+        tag = self.root.find(f'.//author')
+        tag = list(filter(lambda elem: elem.tag != 'id' and elem.tag != 'author', list(tag)))
+        return ' '.join([elem.text for elem in tag])
 
 
 def define_fb2_parser(file_path: str) -> FB2Parser:
@@ -47,4 +52,5 @@ if __name__ == '__main__':
     #file = 'D:\\Personal\\Books\\Self_development\\Dahigg_Sila-privychki.389992.fb2'
     #file = 'D:\\Personal\\Books\\Self_development\\kak-priobretat-druzey-i-okazyvat-vliyanie-na-lyudey-jHGuW.fb2'
     with open(file, encoding='utf-8') as file:
-        FB2Parser(file)
+        p = FB2Parser(file)
+        p.get_info_about_book()
