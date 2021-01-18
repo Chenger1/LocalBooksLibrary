@@ -1,6 +1,9 @@
 import xml.etree.ElementTree as ET
 
+
 from fb2_parser.utils import normalize_text
+
+from typing import Union
 
 
 class FB2Parser:
@@ -35,14 +38,15 @@ class FB2Parser:
         return ' '.join([elem.text for elem in tag])
 
 
-def define_fb2_parser(file_path: str) -> FB2Parser:
+def define_fb2_parser(file_path: str) -> Union[FB2Parser, None]:
     try:
         with open(file_path, encoding='utf-8') as xml_file:
             parser = FB2Parser(xml_file)
     except UnicodeDecodeError:
-        with open(file_path, encoding='utf-8', errors='ignore') as xml_file:
-            parser = FB2Parser(xml_file)
-    finally:
+        return None
+    except ET.ParseError:
+        return None
+    else:
         return parser
 
 

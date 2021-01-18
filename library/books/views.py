@@ -120,7 +120,8 @@ class UpdateInfoAboutBooksView(View):
         for book in get_books(all_books=True):
             if book.extension == 'fb2':
                 parser = define_fb2_parser(book.path)
-                book_info = parser.get_info_about_book()
-                Saver.update_book_info(book, book_info)
+                if parser:
+                    book_info = parser.get_info_about_book()
+                    Saver.update_book_info(book, book_info)
 
-        return redirect('books:list_books')
+        return redirect('books:list_top_folder')
