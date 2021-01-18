@@ -46,7 +46,7 @@ class Saver:
     @classmethod
     def save_book_in_folder(cls, book: BookClass, folder: Folder) -> Book:
         book_inc = Book.objects.create(title=book.name, file_creation_time=book.file_creation_time,
-                                       extension=book.extension, size=book.size, path=book.path,
+                                       extension=book.extension.lower(), size=book.size, path=book.path,
                                        rate=1, folder=folder)
         return book_inc
 
