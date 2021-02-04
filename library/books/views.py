@@ -17,8 +17,9 @@ from fb2_parser.parser import define_fb2_parser
 from tkinter import Tk, filedialog
 
 
-class ListBooksView(View):
-    template = 'books/list.html'
+class ListEbooksView(View):
+    """Displays all ebooks"""
+    template = 'books/e-books/ebook_list.html'
 
     def get(self, request, dir_id=None):
         if dir_id:
@@ -57,11 +58,11 @@ class CheckFoldersUpdate(View):
             Saver.clear_folders_structure()
             self.save_folders(folder_path)
 
-        return redirect('books:list_top_folder')
+        return redirect('books:list_top_e-folder')
 
     def post(self, request):
         self.save_folders(request.POST['folder_path'])
-        return redirect('books:list_top_folder')
+        return redirect('books:list_top_e-folder')
 
     @staticmethod
     def save_folders(folder_path: str):
@@ -70,7 +71,7 @@ class CheckFoldersUpdate(View):
 
 
 class AddNewBook(View):
-    template = 'books/add_book.html'
+    template = 'books/e-books/add_book.html'
 
     def get(self, request, open_filedialog=False):
         books = None
@@ -95,7 +96,7 @@ class AddNewBook(View):
             book = Finder.create_book_instance(new_book_path)
             Saver.save_book_in_folder(book, folder)
 
-        return redirect('books:list_top_folder')
+        return redirect('books:list_top_e-folder')
 
 
 class SearchView(View):
@@ -103,7 +104,7 @@ class SearchView(View):
         search_query = request.POST['search_query']
         folder = get_folders(folder_name=search_query)
         if folder:
-            return redirect('books:list_books', dir_id=folder.pk)
+            return redirect('books:list_ebooks', dir_id=folder.pk)
         else:
             return redirect('books:not_found', info_to_display=search_query)
 
@@ -124,4 +125,4 @@ class UpdateInfoAboutBooksView(View):
                     book_info = parser.get_info_about_book()
                     Saver.update_book_info(book, book_info)
 
-        return redirect('books:list_top_folder')
+        return redirect('books:list_top_e-folder')
