@@ -2,7 +2,7 @@ from django.test import TestCase
 
 import os
 
-from books.services.system_services import init_system_data_file, write_data_to_file, check_books_folder_last_update
+from ebooks.services.system_services import init_system_data_file, write_data_to_file, check_books_folder_last_update
 
 
 class SystemTest(TestCase):

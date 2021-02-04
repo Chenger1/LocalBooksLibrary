@@ -2,14 +2,14 @@ from django.shortcuts import render
 from django.views.generic import View
 from django.shortcuts import redirect
 
-from books.utils.structure_manager import StructureManager
-from books.utils.subfolders_utils import get_folders, get_books
+from ebooks.utils.structure_manager import StructureManager
+from ebooks.utils.subfolders_utils import get_folders, get_books
 
-from books.services.save_data_to_db import Saver
+from ebooks.services.save_data_to_db import Saver
 
 from book_finder.services.finder import Finder
 
-from books.forms import AddNewBookForm
+from ebooks.forms import AddNewBookForm
 
 from common.system_data import move_file_to_folder
 from fb2_parser.parser import define_fb2_parser
@@ -58,11 +58,11 @@ class CheckFoldersUpdate(View):
             Saver.clear_folders_structure()
             self.save_folders(folder_path)
 
-        return redirect('books:list_top_e-folder')
+        return redirect('ebooks:list_top_e-folder')
 
     def post(self, request):
         self.save_folders(request.POST['folder_path'])
-        return redirect('books:list_top_e-folder')
+        return redirect('ebooks:list_top_e-folder')
 
     @staticmethod
     def save_folders(folder_path: str):
@@ -96,7 +96,7 @@ class AddNewBook(View):
             book = Finder.create_book_instance(new_book_path)
             Saver.save_book_in_folder(book, folder)
 
-        return redirect('books:list_top_e-folder')
+        return redirect('ebooks:list_top_e-folder')
 
 
 class SearchView(View):
@@ -104,9 +104,9 @@ class SearchView(View):
         search_query = request.POST['search_query']
         folder = get_folders(folder_name=search_query)
         if folder:
-            return redirect('books:list_ebooks', dir_id=folder.pk)
+            return redirect('ebooks:list_ebooks', dir_id=folder.pk)
         else:
-            return redirect('books:not_found', info_to_display=search_query)
+            return redirect('ebooks:not_found', info_to_display=search_query)
 
 
 class NotFoundView(View):
@@ -125,4 +125,4 @@ class UpdateInfoAboutBooksView(View):
                     book_info = parser.get_info_about_book()
                     Saver.update_book_info(book, book_info)
 
-        return redirect('books:list_top_e-folder')
+        return redirect('ebooks:list_top_e-folder')

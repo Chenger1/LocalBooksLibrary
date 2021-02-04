@@ -15,7 +15,7 @@ class Folder(models.Model):
     path = models.FilePathField()
 
     def get_absolute_url(self):
-        return reverse('books:list_ebooks', args=[self.pk])
+        return reverse('ebooks:list_ebooks', args=[self.pk])
 
     class Meta:
         ordering = ['name']

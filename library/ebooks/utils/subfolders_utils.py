@@ -1,6 +1,6 @@
 from typing import Union
 
-from books.models import Folder, Book
+from ebooks.models import Folder, Book
 
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import QuerySet

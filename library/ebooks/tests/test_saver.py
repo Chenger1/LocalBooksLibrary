@@ -2,7 +2,7 @@ from django.test import TestCase
 
 from book_finder.services.finder import Finder
 
-from books.services.save_data_to_db import Saver
+from ebooks.services.save_data_to_db import Saver
 
 
 class SaverTest(TestCase):

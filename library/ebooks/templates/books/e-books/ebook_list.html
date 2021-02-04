@@ -75,7 +75,7 @@
             <div class="row">
                 <div class="col-6" style="margin: 20% auto;">
                     <div class="form-group" style="text-align: center;">
-                        <form action="{% url 'books:save_data' %}" method="post">
+                        <form action="{% url 'ebooks:save_data' %}" method="post">
                             {% csrf_token %}
                             <label for="folder_path">Path to folder with books</label>
                             <input type="text" placeholder="Path" name="folder_path" id="folder_path" class="form-control"

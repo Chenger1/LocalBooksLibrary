@@ -1,6 +1,6 @@
 from django import forms
 
-from books.models import Folder
+from ebooks.models import Folder
 
 
 class AddNewBookForm(forms.Form):

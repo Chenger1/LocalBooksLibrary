@@ -1,4 +1,4 @@
-from books.models import Folder, Author, Book
+from ebooks.models import Folder, Author, Book
 
 from book_finder.services.finder import Directory
 from book_finder.services.finder import Book as BookClass

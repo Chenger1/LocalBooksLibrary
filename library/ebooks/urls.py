@@ -1,9 +1,9 @@
 from django.urls import path
 
-import books.views as views
+import ebooks.views as views
 
 
-app_name = 'books'
+app_name = 'ebooks'
 
 
 urlpatterns = [

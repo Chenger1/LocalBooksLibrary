@@ -7,13 +7,13 @@
         <div class="row">
             <div class="col-12">
                 <h2>Choose book/books to add</h2>
-                <form action="{% url 'books:add_new_book_post' %}" method="post" enctype="multipart/form-data">
+                <form action="{% url 'ebooks:add_new_book_post' %}" method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <div class="row">
 
                         <div class="col-6">
                             <h4>Books/Book</h4>
-                            <a href="{% url 'books:add_new_book_with_filedialog' %}">Choose books</a>
+                            <a href="{% url 'ebooks:add_new_book_with_filedialog' %}">Choose books</a>
 
                             <div>
                                 <ul>

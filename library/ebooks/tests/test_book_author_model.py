@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from books.models import Author, Book, Folder
+from ebooks.models import Author, Book, Folder
 
 
 class FolderTest(TestCase):
