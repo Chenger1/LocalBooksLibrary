@@ -4,11 +4,21 @@
 {% block title %}Library{% endblock %}
 
 {% block content %}
-    <div class="container">
+    <div class="container-fluid">
         {% if folder %}
             <div class="row">
                 <div class="col-2">
-
+                    <ul class="list-group" style="text-align: center; margin: 0 auto;">
+                        <li class="list-group-item">
+                            <a href="{% url 'ebooks:add_new_book' %}">Add new book/books</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="{% url 'ebooks:update_info_about_books' %}">Update info about books</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="{% url 'ebooks:check_folder_for_update' %}">Update page</a>
+                        </li>
+                    </ul>
                 </div>
 
                 <div class="col-10">
