@@ -11,7 +11,7 @@ class FolderAdmin(admin.ModelAdmin):
 
 @admin.register(Book)
 class BookAdmin(admin.ModelAdmin):
-    list_display = ['title']
+    list_display = ['title', 'pk']
     list_filter = ['extension']
 
 
