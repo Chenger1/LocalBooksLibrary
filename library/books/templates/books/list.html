@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load beauty_size %}
 
 {% block title %}Library{% endblock %}
 
@@ -47,14 +48,14 @@
                                 <td>Name</td>
                                 <td>Date read/modified</td>
                                 <td>Type</td>
-                                <td>Size</td>
+                                <td>Size (mb)</td>
                             </tr>
                             {% for subdir in subdirs %}
                                 <tr>
                                     <td><a href="{{ subdir.get_absolute_url }}">{{ subdir.name }}</a></td>
                                     <td>{{ subdir.created }}</td>
                                     <td>File folder</td>
-                                    <td>{{ subdir.size }}</td>
+                                    <td>{{ subdir.size|round_size }}</td>
                                 </tr>
                             {% endfor %}
 
@@ -63,7 +64,7 @@
                                     <td>{{ book.title }}</td>
                                     <td>{{ book.last_read_time }}</td>
                                     <td>{{ book.extension }}</td>
-                                    <td>{{ book.size }}</td>
+                                    <td>{{ book.size|round_size }}</td>
                                 </tr>
                             {% endfor %}
                         </table>
