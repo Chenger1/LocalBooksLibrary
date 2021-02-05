@@ -6,7 +6,7 @@ from ebooks.services.save_data_to_db import Saver
 
 
 class SaverTest(TestCase):
-    path = 'D:\\Personal\\Books\\Math'
+    path = 'D:\\Personal\\Books'
 
     @classmethod
     def setUpTestData(cls):
@@ -16,4 +16,4 @@ class SaverTest(TestCase):
     def test_saver(self):
         saver = Saver()
         status = saver.save_structure_to_db(self.folder)
-        self.assertEquals(status['status'], 'OK')
+        self.assertEquals(status['status'], 200)
