@@ -130,4 +130,5 @@ dmypy.json
 /library/library/config.py
 /library/book_finder/migrations/
 /library/books/migrations/
+/library/ebooks/migrations/
 .idea
