@@ -1,5 +1,8 @@
 from ebooks.models import Folder, Ebook
 
+from books.services.get_book import get_book_instance_by_title
+from books.services.save_to_db import Saver as sv
+
 from book_finder.services.finder import Directory
 from book_finder.services.finder import Book as BookClass
 
@@ -25,14 +28,17 @@ class Saver:
     @staticmethod
     def _save_book_instances_to_db(folder: Folder, books: list):
         for book in books:
-            book_inst, is_created = Ebook.objects.get_or_create(title=book.name,
+            base_book_inst = get_book_instance_by_title(book.name)
+            if not base_book_inst:  # If there is no any books with specific title we create one
+                base_book_inst = sv.save_book_to_db(book.to_dict())
+
+            book_inst, is_created = Ebook.objects.get_or_create(base_book=base_book_inst,
                                                                 file_creation_time=book.file_creation_time,
                                                                 extension=book.extension,
                                                                 defaults={'size': book.size,
-                                                                         'path': book.path,
-                                                                         'rate': 1,
-                                                                         'folder': folder,
-                                                                         })
+                                                                          'path': book.path,
+                                                                          'folder': folder,
+                                                                          'base_book': base_book_inst})
             if not is_created:
                 book_inst.folder = folder
                 book_inst.path = book.path
