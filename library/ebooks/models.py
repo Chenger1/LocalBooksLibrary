@@ -1,6 +1,8 @@
 from django.db import models
 from django.urls import reverse
 
+from books.models import Book
+
 
 class Folder(models.Model):
     name = models.CharField(max_length=250)
@@ -36,6 +38,8 @@ class Ebook(models.Model):
                                related_name='books')
 
     extension = models.CharField(max_length=20)
+
+    base_book = models.ForeignKey(Book, related_name='ebook', on_delete=models.CASCADE)
 
     class Meta:
         ordering = ['size']

@@ -1,7 +1,5 @@
 from django.db import models
 
-from ebooks.models import Ebook
-
 
 class Author(models.Model):
     name = models.CharField(max_length=250)
@@ -29,8 +27,8 @@ class Book(models.Model):
 
     title = models.CharField(max_length=250)
     author = models.ManyToManyField(Author, related_name='books', blank=True)
-    annotation = models.TextField(max_length=500, blank=True)
-    genre = models.CharField(max_length=50, blank=True)
+    annotation = models.TextField(max_length=500, blank=True, null=True)
+    genre = models.CharField(max_length=50, blank=True, null=True)
 
     rate = models.IntegerField(choices=RATE_CHOICES, blank=True)
 
@@ -39,9 +37,6 @@ class Book(models.Model):
     to_read = models.BooleanField(default=False)
     is_favorite = models.BooleanField(default=False)
     have_read = models.BooleanField(default=False)
-
-    ebook = models.ForeignKey(Ebook, related_name='ebook', blank=True, null=True,
-                              on_delete=models.CASCADE)
 
     class Meta:
         ordering = ['title']
