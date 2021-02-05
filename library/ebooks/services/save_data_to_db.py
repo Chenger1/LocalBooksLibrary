@@ -1,4 +1,4 @@
-from ebooks.models import Folder, Author, Book
+from ebooks.models import Folder, Ebook
 
 from book_finder.services.finder import Directory
 from book_finder.services.finder import Book as BookClass
@@ -25,10 +25,10 @@ class Saver:
     @staticmethod
     def _save_book_instances_to_db(folder: Folder, books: list):
         for book in books:
-            book_inst, is_created = Book.objects.get_or_create(title=book.name,
-                                                               file_creation_time=book.file_creation_time,
-                                                               extension=book.extension,
-                                                               defaults={'size': book.size,
+            book_inst, is_created = Ebook.objects.get_or_create(title=book.name,
+                                                                file_creation_time=book.file_creation_time,
+                                                                extension=book.extension,
+                                                                defaults={'size': book.size,
                                                                          'path': book.path,
                                                                          'rate': 1,
                                                                          'folder': folder,
@@ -44,23 +44,23 @@ class Saver:
         Folder.objects.all().delete()
 
     @classmethod
-    def save_book_in_folder(cls, book: BookClass, folder: Folder) -> Book:
-        book_inc = Book.objects.create(title=book.name, file_creation_time=book.file_creation_time,
+    def save_book_in_folder(cls, book: BookClass, folder: Folder) -> Ebook:
+        book_inc = Ebook.objects.create(title=book.name, file_creation_time=book.file_creation_time,
                                        extension=book.extension.lower(), size=book.size, path=book.path,
                                        rate=1, folder=folder)
         return book_inc
 
-    @classmethod
-    def update_book_info(cls, book: BookClass, info_to_update: dict):
-        author = cls.add_author_to_db(info_to_update['author'])
-        book.genre = info_to_update['genre']
-        book.description = info_to_update['annotation']
-        book.author.add(author)
-        book.save()
+    # @classmethod
+    # def update_book_info(cls, book: BookClass, info_to_update: dict):
+    #     author = cls.add_author_to_db(info_to_update['author'])
+    #     book.genre = info_to_update['genre']
+    #     book.description = info_to_update['annotation']
+    #     book.author.add(author)
+    #     book.save()
 
-    @classmethod
-    def add_author_to_db(cls, data) -> Author:
-        author_data = data.split(' ')
-        author_ins, is_created = Author.objects.get_or_create(name=author_data[0], surname=author_data[1])
-
-        return author_ins
+    # @classmethod
+    # def add_author_to_db(cls, data) -> Author:
+    #     author_data = data.split(' ')
+    #     author_ins, is_created = Author.objects.get_or_create(name=author_data[0], surname=author_data[1])
+    #
+    #     return author_ins

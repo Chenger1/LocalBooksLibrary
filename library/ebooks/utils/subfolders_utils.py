@@ -1,6 +1,6 @@
 from typing import Union
 
-from ebooks.models import Folder, Book
+from ebooks.models import Folder, Ebook
 
 from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import QuerySet
@@ -22,12 +22,12 @@ def get_folders(folder_id: int = None, is_top_folder: bool = False, folder_name:
         return folder
 
 
-def get_books(book_id=None, all_books=False) -> Union[QuerySet[Book], Book, None]:
+def get_books(book_id=None, all_books=False) -> Union[QuerySet[Ebook], Ebook, None]:
     try:
         if all_books:
-            books = Book.objects.all()
+            books = Ebook.objects.all()
         elif book_id:
-            books = Book.objects.get(pk=book_id)
+            books = Ebook.objects.get(pk=book_id)
         else:
             return None
     except ObjectDoesNotExist:
