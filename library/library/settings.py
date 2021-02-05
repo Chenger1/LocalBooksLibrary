@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'bootstrap4',
 
     'book_finder.apps.BookFinderConfig',
+    'books.apps.BooksConfig',
     'ebooks.apps.EbooksConfig',
 ]
 
