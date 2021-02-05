@@ -1,5 +1,5 @@
 from typing import Union, List
-from dataclasses import dataclass, field
+from dataclasses import dataclass, field, asdict
 from functools import reduce
 import os
 import datetime
@@ -24,6 +24,9 @@ class BaseItem:
 
         unix_time = os.path.getctime(self.path)
         return transform_unix_time(unix_time)
+
+    def to_dict(self) -> dict:
+        return asdict(self)
 
 
 @dataclass
