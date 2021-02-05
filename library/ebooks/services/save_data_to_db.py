@@ -2,6 +2,7 @@ from ebooks.models import Folder, Ebook
 
 from books.services.get_book import get_book_instance_by_title
 from books.services.save_to_db import Saver as sv
+from books.models import Book
 
 from book_finder.services.finder import Directory
 from book_finder.services.finder import Book as BookClass
@@ -25,12 +26,10 @@ class Saver:
                 cls.save_structure_to_db(subdir, parent_folder=new_folder)
         return {'status': 200}
 
-    @staticmethod
-    def _save_book_instances_to_db(folder: Folder, books: list):
+    @classmethod
+    def _save_book_instances_to_db(cls, folder: Folder, books: list):
         for book in books:
-            base_book_inst = get_book_instance_by_title(book.name)
-            if not base_book_inst:  # If there is no any books with specific title we create one
-                base_book_inst = sv.save_book_to_db(book.to_dict())
+            base_book_inst = cls._get_base_book(book.name, book)
 
             book_inst, is_created = Ebook.objects.get_or_create(base_book=base_book_inst,
                                                                 file_creation_time=book.file_creation_time,
@@ -51,10 +50,18 @@ class Saver:
 
     @classmethod
     def save_book_in_folder(cls, book: BookClass, folder: Folder) -> Ebook:
-        book_inc = Ebook.objects.create(title=book.name, file_creation_time=book.file_creation_time,
-                                       extension=book.extension.lower(), size=book.size, path=book.path,
-                                       rate=1, folder=folder)
+        base_book_inst = cls._get_base_book(book.name, book)
+        book_inc = Ebook.objects.create(file_creation_time=book.file_creation_time,
+                                        extension=book.extension.lower(), size=book.size, path=book.path,
+                                        rate=1, folder=folder, base_book=base_book_inst)
         return book_inc
+
+    @staticmethod
+    def _get_base_book(title: str, book: BookClass) -> Book:
+        base_book_inst = get_book_instance_by_title(title)
+        if not base_book_inst:  # If there is no any books with specific title we create one
+            base_book_inst = sv.save_book_to_db(book.to_dict())
+        return base_book_inst
 
     # @classmethod
     # def update_book_info(cls, book: BookClass, info_to_update: dict):
