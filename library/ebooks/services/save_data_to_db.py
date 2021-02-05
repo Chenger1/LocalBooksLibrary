@@ -34,7 +34,7 @@ class Saver:
 
             book_inst, is_created = Ebook.objects.get_or_create(base_book=base_book_inst,
                                                                 file_creation_time=book.file_creation_time,
-                                                                extension=book.extension,
+                                                                extension=book.extension.lower(),
                                                                 defaults={'size': book.size,
                                                                           'path': book.path,
                                                                           'folder': folder,
