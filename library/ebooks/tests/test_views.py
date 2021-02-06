@@ -48,3 +48,12 @@ class AddNewBookTest(TestCase):
                                                               f'{self.books_path}\\KlassZadachiCompScienPyth.pdf']},
                                 follow=True)
         self.assertEqual(resp.status_code, 200, msg=resp.content)
+
+
+class UpdateInfoAboutBookTest(TestCase):
+    folder_path = 'D:\\Personal\\Books'
+
+    def test_get(self):
+        self.client.post('/save_data/', {'folder_path': self.folder_path}, follow=True)
+        resp = self.client.get('/update_info_about_books/', follow=True)
+        self.assertEqual(resp.status_code, 200, msg=resp.content)
