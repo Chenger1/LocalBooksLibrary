@@ -11,6 +11,8 @@ from book_finder.services.finder import Finder
 
 from ebooks.forms import AddNewBookForm
 
+from books.services.save_to_db import Saver as sv
+
 from common.system_data import move_file_to_folder
 from fb2_parser.parser import define_fb2_parser
 
@@ -118,11 +120,11 @@ class NotFoundView(View):
 
 class UpdateInfoAboutBooksView(View):
     def get(self, request):
-        for book in get_books(all_books=True):
-            if book.extension == 'fb2':
-                parser = define_fb2_parser(book.path)
+        for ebook in get_books(all_books=True):  # Get all the Books (Not Ebook instances. Regular Book)
+            if ebook.extension == 'fb2':
+                parser = define_fb2_parser(ebook.path)
                 if parser:
                     book_info = parser.get_info_about_book()
-                    Saver.update_book_info(book, book_info)
+                    sv.update_book_info(ebook.base_book, book_info)
 
         return redirect('ebooks:list_top_e-folder')
