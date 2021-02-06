@@ -53,7 +53,7 @@ class Saver:
         base_book_inst = cls._get_base_book(book.name, book)
         book_inc = Ebook.objects.create(file_creation_time=book.file_creation_time,
                                         extension=book.extension.lower(), size=book.size, path=book.path,
-                                        rate=1, folder=folder, base_book=base_book_inst)
+                                        folder=folder, base_book=base_book_inst)
         return book_inc
 
     @staticmethod
@@ -62,18 +62,3 @@ class Saver:
         if not base_book_inst:  # If there is no any books with specific title we create one
             base_book_inst = sv.save_book_to_db(book.to_dict())
         return base_book_inst
-
-    # @classmethod
-    # def update_book_info(cls, book: BookClass, info_to_update: dict):
-    #     author = cls.add_author_to_db(info_to_update['author'])
-    #     book.genre = info_to_update['genre']
-    #     book.description = info_to_update['annotation']
-    #     book.author.add(author)
-    #     book.save()
-
-    # @classmethod
-    # def add_author_to_db(cls, data) -> Author:
-    #     author_data = data.split(' ')
-    #     author_ins, is_created = Author.objects.get_or_create(name=author_data[0], surname=author_data[1])
-    #
-    #     return author_ins
