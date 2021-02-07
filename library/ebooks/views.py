@@ -15,6 +15,7 @@ from books.services.save_to_db import Saver as sv
 
 from common.system_data import move_file_to_folder
 from fb2_parser.parser import define_fb2_parser
+from epub_parser.parser import EpubParser
 
 from tkinter import Tk, filedialog
 
@@ -123,8 +124,13 @@ class UpdateInfoAboutBooksView(View):
         for ebook in get_books(all_books=True):  # Get all the Books (Not Ebook instances. Regular Book)
             if ebook.extension == 'fb2':
                 parser = define_fb2_parser(ebook.path)
-                if parser:
-                    book_info = parser.get_info_about_book()
-                    sv.update_book_info(ebook.base_book, book_info)
+            elif ebook.extension == 'epub':
+                parser = EpubParser(ebook.path)
+            else:
+                continue
+
+            if parser:
+                book_info = parser.get_info_about_book()
+                sv.update_book_info(ebook.base_book, book_info)
 
         return redirect('ebooks:list_top_e-folder')
