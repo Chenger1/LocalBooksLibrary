@@ -14,7 +14,7 @@ class Folder(models.Model):
     created = models.DateTimeField()
 
     is_top_folder = models.BooleanField(default=False)
-    path = models.FilePathField()
+    path = models.TextField()
 
     def get_absolute_url(self):
         return reverse('ebooks:list_ebooks', args=[self.pk])
