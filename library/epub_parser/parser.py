@@ -52,8 +52,10 @@ class EpubParser:
         for elem in ['creator', 'description', 'genre']:
             try:
                 text = data_from_content_file.find(elem).text
-                if elem == 'creator':
+                if elem == 'creator':  # change tag because of model attributes - 'author'
                     data['author'] = text
+                elif elem == 'description':  # 'annotation' in model
+                    data['annotation'] = text
                 else:
                     data[elem] = text
             except AttributeError:
