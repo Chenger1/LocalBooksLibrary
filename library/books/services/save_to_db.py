@@ -22,7 +22,7 @@ class Saver:
     def update_book_info(cls, book: Book, info_to_update: Dict[str, str]):
         author_data = {}
         temp = info_to_update['author'].split(' ')
-        author_data['name'], author_data['surname'] = temp[0], temp[1]
+        author_data['name'], author_data['surname'] = temp[0], temp[-1]
         author = cls.add_author_to_db(author_data)
         book.genre = info_to_update.get('genre')
         book.description = info_to_update.get('annotation')
