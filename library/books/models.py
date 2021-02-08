@@ -9,6 +9,10 @@ class Author(models.Model):
         ordering = ['name']
         db_table = 'author'
 
+    @property
+    def full_name(self):
+        return f'{self.name} {self.surname}'
+
 
 class Book(models.Model):
     WORST_RATE = 1
@@ -37,6 +41,11 @@ class Book(models.Model):
     to_read = models.BooleanField(default=False)
     is_favorite = models.BooleanField(default=False)
     have_read = models.BooleanField(default=False)
+
+    @property
+    def authors(self):
+        result = ', '.join([author.full_name for author in self.author.all()])
+        return result
 
     class Meta:
         ordering = ['title']
