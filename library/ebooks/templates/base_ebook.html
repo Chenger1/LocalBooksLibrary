@@ -24,9 +24,10 @@
         <ul class="navbar-nav mr-auto">
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Update
+              Options
             </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{% url 'books:list_books' %}">Go to Book section</a>
             </div>
           </li>
         </ul>
