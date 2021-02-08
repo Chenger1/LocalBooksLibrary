@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 
-{% block title %} Books section {% endblock %}
+{% block title %} Authors {% endblock %}
 
 {% block content %}
-<div class="container-fluid">
+<div class="container">
         {% if object_list %}
             <div class="row">
                 <div class="col-2">
@@ -22,7 +22,7 @@
                             <a href="{% url 'books:list_have_read_books' %}">Have Read</a>
                         </li>
                         <li class="list-group-item">
-                            <a href="{% url 'books:list_author' %}">Authors</a>
+                            <a href="#">Authors</a>
                         </li>
                         <li class="list-group-item">
                             <a href="#">Formats</a>
@@ -34,18 +34,14 @@
                     <div class="row">
                         <table class="table">
                             <tr>
-                                <td>Name</td>
-                                <td>Author</td>
-                                <td>Genre</td>
-                                <td>Rating</td>
+                                <td>Full name</td>
+                                <td>Book amount</td>
                             </tr>
 
-                            {% for book in object_list %}
+                            {% for author in object_list %}
                                 <tr>
-                                    <td>{{ book.title }}</td>
-                                    <td>{{ book.authors}}</td>
-                                    <td>{{ book.genre }}</td>
-                                    <td>{{ book.rate }}</td>
+                                    <td><a href="">{{ author.full_name }}</a></td>
+                                    <td>{{ author.book_amount }}</td>
                                 </tr>
                             {% endfor %}
                         </table>
@@ -54,7 +50,7 @@
             </div>
         {% else %}
             <div class="row">
-                Add new Book
+                Add new Author
             </div>
         {% endif %}
     </div>
