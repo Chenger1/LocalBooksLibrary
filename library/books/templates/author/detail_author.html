@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %} Author {% endblock %}
+{% block content %}
+<div class="container-fluid">
+            <div class="row">
+                <div class="col-2">
+                    <h3>Filter by:</h3>
+                    <ul class="list-group" style="text-align: center; margin: 0 auto;">
+                        <li class="list-group-item">
+                            <a href="{% url 'books:list_books' %}">All books</a>
+                        </li>
+                        <li class="list-group-item" >
+                            <a href="{% url 'books:list_favorite_books' %}">Favorites</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="{% url 'books:list_to_read_books' %}">To Read</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="{% url 'books:list_have_read_books' %}">Have Read</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="#">Authors</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="#">Formats</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-10">
+                    <div class="row">
+                        <h2>{{author.full_name}}</h2>
+                        <table class="table">
+                            <tr>
+                                <td>Name</td>
+                                <td>Author</td>
+                                <td>Genre</td>
+                                <td>Rating</td>
+                            </tr>
+
+                            {% for book in author.books.all %}
+                                <tr>
+                                    <td>{{ book.title }}</td>
+                                    <td>{{ book.authors}}</td>
+                                    <td>{{ book.genre }}</td>
+                                    <td>{{ book.rate }}</td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+    </div>
+{% endblock %}ck %}
