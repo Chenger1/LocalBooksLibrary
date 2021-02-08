@@ -1,6 +1,4 @@
 from django.urls import path
-from django.conf import settings
-from django.conf.urls.static import static
 
 import ebooks.views as views
 
@@ -22,7 +20,3 @@ urlpatterns = [
     path('now_found/<str:info_to_display>/', views.NotFoundView.as_view(), name='not_found'),
     path('update_info_about_books/', views.UpdateInfoAboutBooksView.as_view(), name='update_info_about_books'),
 ]
-
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL,
-                          document_root=settings.MEDIA_ROOT)
