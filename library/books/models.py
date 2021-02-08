@@ -2,8 +2,8 @@ from django.db import models
 
 
 class Author(models.Model):
-    name = models.CharField(max_length=250)
-    surname = models.CharField(max_length=250, blank=True)
+    name = models.CharField(max_length=250, blank=True)
+    surname = models.CharField(max_length=250)
 
     class Meta:
         ordering = ['name']
