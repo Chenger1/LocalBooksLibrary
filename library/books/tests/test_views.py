@@ -32,3 +32,10 @@ class ListToReadBookViewTest(ListBookViewTest, TestCase):
         resp = self.client.get('/to_read/')
         for book in resp.context_data['book_list']:
             self.assertEqual(book.to_read, True)
+
+
+class ListHaveReadBookViewTest(ListBookViewTest, TestCase):
+    def test_list_have_read_book(self):
+        resp = self.client.get('/have_read/')
+        for book in resp.context_data['book_list']:
+            self.assertEqual(book.have_read, True)

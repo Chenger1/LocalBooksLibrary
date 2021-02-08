@@ -16,3 +16,8 @@ class ListFavoriteBookView(ListBookView):
 class ListToReadBookView(ListBookView):
     def get_queryset(self):
         return self.model.objects.filter(to_read=True)
+
+
+class ListHaveReadBookView(ListBookView):
+    def get_queryset(self):
+        return self.model.objects.filter(have_read=True)
