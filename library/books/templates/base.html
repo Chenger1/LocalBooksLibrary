@@ -10,12 +10,12 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="{% static 'css/ebook.css' %}">
-    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/book.css' %}">
+    <title>LocalBooksLibrary</title>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="{% url 'ebooks:list_top_e-folder' %}">LocalBooksLibrary</a>
+      <a class="navbar-brand" href="{% url 'books:list_books' %}">LocalBooksLibrary</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
       </button>
@@ -27,14 +27,13 @@
               Update
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-<!--                <a class="dropdown-item" href="{% url 'ebooks:add_new_book' %}">Add new book/books</a>-->
-<!--                <a class="dropdown-item" href="{% url 'ebooks:update_info_about_books' %}">Update info about books</a>-->
-<!--                <div class="dropdown-divider"></div>-->
-<!--              <a class="dropdown-item" href="{% url 'ebooks:check_folder_for_update' %}">Update page</a>-->
+                <a class="dropdown-item" href="#">Add new book/books</a>
+                <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{% url 'ebooks:list_top_e-folder' %}">Go to Ebook section</a>
             </div>
           </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0" action="{% url 'ebooks:search' %}" method="post" >
+        <form class="form-inline my-2 my-lg-0" action="#" method="post" >
             {% csrf_token %}
           <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search_query"
           id="search_query">
