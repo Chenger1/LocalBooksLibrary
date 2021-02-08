@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from books.models import Book
+from books.models import Book, Author
 
 import random
 
@@ -39,3 +39,15 @@ class ListHaveReadBookViewTest(ListBookViewTest, TestCase):
         resp = self.client.get('/have_read/')
         for book in resp.context_data['book_list']:
             self.assertEqual(book.have_read, True)
+
+
+class ListAuthorViewTest(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        for num in range(11):
+            Author.objects.create(name=str(num),
+                                  surname=str(num*2))
+
+    def test_list_author(self):
+        resp = self.client.get('/authors/')
+        self.assertEqual(resp.status_code, 200)

@@ -1,6 +1,6 @@
 from django.views.generic.list import ListView
 
-from books.models import Book
+from books.models import Book, Author
 
 
 class ListBookView(ListView):
@@ -21,3 +21,8 @@ class ListToReadBookView(ListBookView):
 class ListHaveReadBookView(ListBookView):
     def get_queryset(self):
         return self.model.objects.filter(have_read=True)
+
+
+class ListAuthorView(ListView):
+    model = Author
+    template_name = 'book/list_author.html'
