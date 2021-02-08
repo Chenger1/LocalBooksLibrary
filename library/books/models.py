@@ -13,6 +13,10 @@ class Author(models.Model):
     def full_name(self):
         return f'{self.name} {self.surname}'
 
+    @property
+    def book_amount(self):
+        return self.books.count()
+
 
 class Book(models.Model):
     WORST_RATE = 1
