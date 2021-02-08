@@ -51,3 +51,7 @@ class ListAuthorViewTest(TestCase):
     def test_list_author(self):
         resp = self.client.get('/authors/')
         self.assertEqual(resp.status_code, 200)
+
+    def test_detail_author(self):
+        resp = self.client.get('/author/1/')
+        self.assertEqual(resp.status_code, 200)

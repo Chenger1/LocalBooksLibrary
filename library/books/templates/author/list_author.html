@@ -40,7 +40,7 @@
 
                             {% for author in object_list %}
                                 <tr>
-                                    <td><a href="">{{ author.full_name }}</a></td>
+                                    <td><a href="{% url 'books:detail_author' author.pk %}">{{ author.full_name }}</a></td>
                                     <td>{{ author.book_amount }}</td>
                                 </tr>
                             {% endfor %}

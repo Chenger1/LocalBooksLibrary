@@ -1,4 +1,5 @@
 from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 
 from books.models import Book, Author
 
@@ -25,4 +26,9 @@ class ListHaveReadBookView(ListBookView):
 
 class ListAuthorView(ListView):
     model = Author
-    template_name = 'book/list_author.html'
+    template_name = 'author/list_author.html'
+
+
+class DetailAuthorView(DetailView):
+    model = Author
+    template_name = 'author/detail_author.html'
