@@ -1,4 +1,4 @@
-from ebooks.models import Folder, Ebook
+from ebooks.models import Folder, Ebook, Extension
 
 from books.services.get_book import get_book_instance_by_title
 from books.services.save_to_db import Saver as sv
@@ -30,10 +30,9 @@ class Saver:
     def _save_book_instances_to_db(cls, folder: Folder, books: list):
         for book in books:
             base_book_inst = cls._get_base_book(book.name, book)
-
             book_inst, is_created = Ebook.objects.get_or_create(base_book=base_book_inst,
                                                                 file_creation_time=book.file_creation_time,
-                                                                extension=book.extension.lower(),
+                                                                extension=cls._save_extension_to_db(book.extension.lower()),
                                                                 defaults={'size': book.size,
                                                                           'path': book.path,
                                                                           'folder': folder,
@@ -52,7 +51,8 @@ class Saver:
     def save_book_in_folder(cls, book: BookClass, folder: Folder) -> Ebook:
         base_book_inst = cls._get_base_book(book.name, book)
         book_inc = Ebook.objects.create(file_creation_time=book.file_creation_time,
-                                        extension=book.extension.lower(), size=book.size, path=book.path,
+                                        extension=cls._save_extension_to_db(book.extension.lower()),
+                                        size=book.size, path=book.path,
                                         folder=folder, base_book=base_book_inst)
         return book_inc
 
@@ -62,3 +62,8 @@ class Saver:
         if not base_book_inst:  # If there is no any books with specific title we create one
             base_book_inst = sv.save_book_to_db(book.to_dict())
         return base_book_inst
+
+    @staticmethod
+    def _save_extension_to_db(ext_name: str) -> Extension:
+        ext, _ = Extension.objects.get_or_create(name=ext_name)
+        return ext

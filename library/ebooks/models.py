@@ -27,6 +27,13 @@ class Folder(models.Model):
         return self.name
 
 
+class Extension(models.Model):
+    name = models.CharField(max_length=20)
+
+    class Meta:
+        db_table = 'extension'
+
+
 class Ebook(models.Model):
 
     size = models.FloatField(max_length=25)
@@ -37,7 +44,7 @@ class Ebook(models.Model):
     folder = models.ForeignKey(Folder, on_delete=models.CASCADE,
                                related_name='books')
 
-    extension = models.CharField(max_length=20)
+    extension = models.ForeignKey(Extension, related_name='extension', on_delete=models.CASCADE)
 
     base_book = models.ForeignKey(Book, related_name='ebook', on_delete=models.CASCADE)
 
