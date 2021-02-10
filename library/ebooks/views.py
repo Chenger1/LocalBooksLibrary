@@ -122,9 +122,9 @@ class NotFoundView(View):
 class UpdateInfoAboutBooksView(View):
     def get(self, request):
         for ebook in get_books(all_books=True):  # Get all the Books (Not Ebook instances. Regular Book)
-            if ebook.extension == 'fb2':
+            if ebook.extension.name == 'fb2':
                 parser = define_fb2_parser(ebook.path)
-            elif ebook.extension == 'epub':
+            elif ebook.extension.name == 'epub':
                 parser = EpubParser(ebook.path)
             else:
                 continue
