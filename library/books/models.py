@@ -18,6 +18,14 @@ class Author(models.Model):
         return self.books.count()
 
 
+class Genre(models.Model):
+    name = models.CharField(max_length=50)
+
+    class Meta:
+        ordering = ['name']
+        db_table = 'genre'
+
+
 class Book(models.Model):
     WORST_RATE = 1
     BAD_RATE = 2
@@ -36,7 +44,8 @@ class Book(models.Model):
     title = models.CharField(max_length=250)
     author = models.ManyToManyField(Author, related_name='books', blank=True)
     annotation = models.TextField(max_length=500, blank=True, null=True)
-    genre = models.CharField(max_length=50, blank=True, null=True)
+    genre = models.ForeignKey(Genre, related_name='books', on_delete=models.SET_NULL,
+                              blank=True, null=True)
 
     rate = models.IntegerField(choices=RATE_CHOICES, blank=True)
 
