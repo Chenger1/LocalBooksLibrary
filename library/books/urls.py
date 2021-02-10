@@ -11,4 +11,6 @@ urlpatterns = [
     path('have_read/', views.ListHaveReadBookView.as_view(), name='list_have_read_books'),
     path('authors/', views.ListAuthorView.as_view(), name='list_author'),
     path('author/<int:pk>/', views.DetailAuthorView.as_view(), name='detail_author'),
+    path('genres/', views.ListGenreView.as_view(), name='list_genre'),
+    path('genre/<int:pk>', views.DetailGenreView.as_view(), name='detail_genre')
 ]

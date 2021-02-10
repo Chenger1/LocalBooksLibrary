@@ -21,6 +21,10 @@ class Author(models.Model):
 class Genre(models.Model):
     name = models.CharField(max_length=50)
 
+    @property
+    def book_amount(self):
+        return self.books.count()
+
     class Meta:
         ordering = ['name']
         db_table = 'genre'

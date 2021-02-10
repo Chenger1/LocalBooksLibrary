@@ -1,7 +1,7 @@
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 
-from books.models import Book, Author
+from books.models import Book, Author, Genre
 
 
 class ListBookView(ListView):
@@ -32,3 +32,13 @@ class ListAuthorView(ListView):
 class DetailAuthorView(DetailView):
     model = Author
     template_name = 'author/detail_author.html'
+
+
+class ListGenreView(ListView):
+    model = Genre
+    template_name = 'genre/list_genre.html'
+
+
+class DetailGenreView(DetailView):
+    model = Genre
+    template_name = 'genre/detail_genre.html'

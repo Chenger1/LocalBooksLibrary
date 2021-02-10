@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 
-{% block title %} Author {% endblock %}
+{% block title %} Genres {% endblock %}
+
 {% block content %}
-<div class="container-fluid">
+<div class="container">
+        {% if object_list %}
             <div class="row">
                 <div class="col-2">
                     <h3>Filter by:</h3>
@@ -33,26 +35,26 @@
 
                 <div class="col-10">
                     <div class="row">
-                        <h2>{{author.full_name}}</h2>
                         <table class="table">
                             <tr>
                                 <td>Name</td>
-                                <td>Author</td>
-                                <td>Genre</td>
-                                <td>Rating</td>
+                                <td>Book amount</td>
                             </tr>
 
-                            {% for book in author.books.all %}
+                            {% for genre in object_list %}
                                 <tr>
-                                    <td>{{ book.title }}</td>
-                                    <td>{{ book.authors}}</td>
-                                    <td>{{ book.genre.name }}</td>
-                                    <td>{{ book.rate }}</td>
+                                    <td><a href="{% url 'books:detail_genre' genre.pk %}">{{ genre.name }}</a></td>
+                                    <td>{{ genre.book_amount }}</td>
                                 </tr>
                             {% endfor %}
                         </table>
                     </div>
                 </div>
             </div>
+        {% else %}
+            <div class="row">
+                Add new Genre
+            </div>
+        {% endif %}
     </div>
-{% endblock %}ck %}
+{% endblock %}

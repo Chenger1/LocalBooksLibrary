@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} Author {% endblock %}
+{% block title %} Genre {% endblock %}
 {% block content %}
 <div class="container-fluid">
             <div class="row">
@@ -33,20 +33,18 @@
 
                 <div class="col-10">
                     <div class="row">
-                        <h2>{{author.full_name}}</h2>
+                        <h2>{{genre.name}}</h2>
                         <table class="table">
                             <tr>
                                 <td>Name</td>
                                 <td>Author</td>
-                                <td>Genre</td>
                                 <td>Rating</td>
                             </tr>
 
-                            {% for book in author.books.all %}
+                            {% for book in genre.books.all %}
                                 <tr>
                                     <td>{{ book.title }}</td>
                                     <td>{{ book.authors}}</td>
-                                    <td>{{ book.genre.name }}</td>
                                     <td>{{ book.rate }}</td>
                                 </tr>
                             {% endfor %}
