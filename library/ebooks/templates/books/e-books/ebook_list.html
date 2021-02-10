@@ -73,7 +73,7 @@
                                 <tr>
                                     <td>{{ book.base_book.title }}</td>
                                     <td>{{ book.file_creation_time }}</td>
-                                    <td>{{ book.extension }}</td>
+                                    <td>{{ book.extension.name }}</td>
                                     <td>{{ book.size|round_size }}</td>
                                 </tr>
                             {% endfor %}
