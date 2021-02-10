@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} Books section {% endblock %}
+{% block title %} Books section - Extensions {% endblock %}
 
 {% block content %}
 <div class="container-fluid">
@@ -35,17 +35,13 @@
                         <table class="table">
                             <tr>
                                 <td>Name</td>
-                                <td>Author</td>
-                                <td>Genre</td>
-                                <td>Rating</td>
+                                <td>Books amount</td>
                             </tr>
 
-                            {% for book in object_list %}
+                            {% for ext in object_list %}
                                 <tr>
-                                    <td>{{ book.title }}</td>
-                                    <td>{{ book.authors}}</td>
-                                    <td>{{ book.genre }}</td>
-                                    <td>{{ book.rate }}</td>
+                                    <td><a href="{{ext.get_absolute_url}}}">{{ ext.name }}</a></td>
+                                    <td>{{ ext.book_amount}}</td>
                                 </tr>
                             {% endfor %}
                         </table>

@@ -30,6 +30,10 @@ class Folder(models.Model):
 class Extension(models.Model):
     name = models.CharField(max_length=20)
 
+    @property
+    def book_amount(self):
+        return self.ebook.count()
+
     class Meta:
         db_table = 'extension'
 
@@ -44,7 +48,7 @@ class Ebook(models.Model):
     folder = models.ForeignKey(Folder, on_delete=models.CASCADE,
                                related_name='books')
 
-    extension = models.ForeignKey(Extension, related_name='extension', on_delete=models.CASCADE)
+    extension = models.ForeignKey(Extension, related_name='ebook', on_delete=models.CASCADE)
 
     base_book = models.ForeignKey(Book, related_name='ebook', on_delete=models.CASCADE)
 

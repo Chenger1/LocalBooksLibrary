@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.views.generic import View
+from django.views.generic.list import ListView
 from django.shortcuts import redirect
 
 from ebooks.utils.structure_manager import StructureManager
@@ -10,6 +11,7 @@ from ebooks.services.save_data_to_db import Saver
 from book_finder.services.finder import Finder
 
 from ebooks.forms import AddNewBookForm
+from ebooks.models import Extension
 
 from books.services.save_to_db import Saver as sv
 
@@ -134,3 +136,8 @@ class UpdateInfoAboutBooksView(View):
                 sv.update_book_info(ebook.base_book, book_info)
 
         return redirect('ebooks:list_top_e-folder')
+
+
+class ListExtensionsView(ListView):
+    model = Extension
+    template_name = 'books/e-books/list_extensions.html'
