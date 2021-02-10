@@ -10,12 +10,11 @@ class Author(models.Model):
         db_table = 'author'
 
     @property
-    def full_name(self):
-        return f'{self.name} {self.surname}'
-
-    @property
     def book_amount(self):
         return self.books.count()
+
+    def __str__(self):
+        return f'{self.name} {self.surname}'
 
 
 class Genre(models.Model):
@@ -28,6 +27,9 @@ class Genre(models.Model):
     class Meta:
         ordering = ['name']
         db_table = 'genre'
+
+    def __str__(self):
+        return self.name
 
 
 class Book(models.Model):
@@ -61,7 +63,7 @@ class Book(models.Model):
 
     @property
     def authors(self):
-        result = ', '.join([author.full_name for author in self.author.all()])
+        result = ', '.join([author.__str__() for author in self.author.all()])
         return result
 
     class Meta:
