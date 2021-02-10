@@ -1,10 +1,8 @@
 {% extends 'base.html' %}
 
-{% block title %} Authors {% endblock %}
-
+{% block title %} Extension {% endblock %}
 {% block content %}
-<div class="container">
-        {% if object_list %}
+<div class="container-fluid">
             <div class="row">
                 <div class="col-2">
                     <h3>Filter by:</h3>
@@ -32,26 +30,26 @@
 
                 <div class="col-10">
                     <div class="row">
+                        <h2>{{extension.name}}</h2>
                         <table class="table">
                             <tr>
-                                <td>Full name</td>
-                                <td>Book amount</td>
+                                <td>Name</td>
+                                <td>Author</td>
+                                <td>Genre</td>
+                                <td>Rating</td>
                             </tr>
 
-                            {% for author in object_list %}
+                            {% for ebook in extension.ebook.all %}
                                 <tr>
-                                    <td><a href="{% url 'books:detail_author' author.pk %}">{{ author.full_name }}</a></td>
-                                    <td>{{ author.book_amount }}</td>
+                                    <td>{{ ebook.base_book.title }}</td>
+                                    <td>{{ ebook.base_book.authors}}</td>
+                                    <td>{{ ebook.base_book.genre }}</td>
+                                    <td>{{ ebook.base_book.rate }}</td>
                                 </tr>
                             {% endfor %}
                         </table>
                     </div>
                 </div>
             </div>
-        {% else %}
-            <div class="row">
-                Add new Author
-            </div>
-        {% endif %}
     </div>
-{% endblock %}
+{% endblock %}ck %}

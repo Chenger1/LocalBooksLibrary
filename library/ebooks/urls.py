@@ -19,5 +19,6 @@ urlpatterns = [
     path('search/', views.SearchView.as_view(), name='search'),
     path('now_found/<str:info_to_display>/', views.NotFoundView.as_view(), name='not_found'),
     path('update_info_about_books/', views.UpdateInfoAboutBooksView.as_view(), name='update_info_about_books'),
-    path('list-extensions/', views.ListExtensionsView.as_view(), name='list_extensions')
+    path('list-extensions/', views.ListExtensionsView.as_view(), name='list_extensions'),
+    path('detail_extension/<int:pk>/', views.DetailExtensionView.as_view(), name='detail_extension')
 ]

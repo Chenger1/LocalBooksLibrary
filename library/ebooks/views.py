@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.views.generic import View
 from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 from django.shortcuts import redirect
 
 from ebooks.utils.structure_manager import StructureManager
@@ -141,3 +142,8 @@ class UpdateInfoAboutBooksView(View):
 class ListExtensionsView(ListView):
     model = Extension
     template_name = 'books/e-books/list_extensions.html'
+
+
+class DetailExtensionView(DetailView):
+    model = Extension
+    template_name = 'books/e-books/detail_extension.html'

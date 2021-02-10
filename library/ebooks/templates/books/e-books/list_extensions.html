@@ -40,7 +40,7 @@
 
                             {% for ext in object_list %}
                                 <tr>
-                                    <td><a href="{{ext.get_absolute_url}}}">{{ ext.name }}</a></td>
+                                    <td><a href="{% url 'ebooks:detail_extension' ext.pk %}">{{ ext.name }}</a></td>
                                     <td>{{ ext.book_amount}}</td>
                                 </tr>
                             {% endfor %}
