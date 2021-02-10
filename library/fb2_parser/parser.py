@@ -3,7 +3,7 @@ import xml.etree.ElementTree as ET
 
 from fb2_parser.utils import normalize_text
 
-from typing import Union
+from typing import Union, List
 
 
 class FB2Parser:
@@ -32,10 +32,17 @@ class FB2Parser:
         book_info['author'] = self.get_author_info()
         return book_info
 
-    def get_author_info(self) -> str:
-        tag = self.root.find(f'.//author')
-        tag = list(filter(lambda elem: elem.tag != 'id' and elem.tag != 'author', list(tag)))
-        return ' '.join([elem.text for elem in tag])
+    def get_author_info(self) -> List[str]:
+        authors = []
+        tags = self.root.findall(f'.//author')
+        for tag in tags:
+            try:
+                first_name = tag.find('./first-name').text
+                last_name = tag.find('./last-name').text
+                authors.append(f'{first_name} {last_name}')
+            except AttributeError:
+                continue
+        return authors
 
 
 def define_fb2_parser(file_path: str) -> Union[FB2Parser, None]:

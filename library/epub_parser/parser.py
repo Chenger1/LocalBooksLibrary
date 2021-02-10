@@ -48,12 +48,12 @@ class EpubParser:
         """
         Finds list of tags below in metadata element in puts them into dict
         """
-        data = {}
+        data = {'author': []}
         for elem in ['creator', 'description', 'genre']:
             try:
                 text = data_from_content_file.find(elem).text
                 if elem == 'creator':  # change tag because of model attributes - 'author'
-                    data['author'] = text
+                    data['author'].append(text)
                 elif elem == 'description':  # 'annotation' in model
                     data['annotation'] = text
                 else:
