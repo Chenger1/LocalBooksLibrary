@@ -55,3 +55,13 @@ class ListAuthorViewTest(TestCase):
     def test_detail_author(self):
         resp = self.client.get('/author/1/')
         self.assertEqual(resp.status_code, 200)
+
+
+class CreateBookViewTest(TestCase):
+    def test_create_book_get_view(self):
+        resp = self.client.get('/add_new_book/')
+        self.assertEqual(resp.status_code, 200, msg=resp.content)
+
+    def test_create_book_post_view(self):
+        resp = self.client.post('/add_new_book/', {'title': ['Test Book'], 'rate': [1]}, follow=True)
+        self.assertEqual(resp.status_code, 200, msg=resp.content)
