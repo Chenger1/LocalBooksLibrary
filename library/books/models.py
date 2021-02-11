@@ -10,6 +10,9 @@ class Author(models.Model):
         ordering = ['name']
         db_table = 'author'
 
+    def get_absolute_url(self):
+        return reverse('books:detail_author', args=[self.pk])
+
     @property
     def book_amount(self):
         return self.books.count()
