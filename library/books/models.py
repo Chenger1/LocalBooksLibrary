@@ -1,4 +1,5 @@
 from django.db import models
+from django.shortcuts import reverse
 
 
 class Author(models.Model):
@@ -65,6 +66,9 @@ class Book(models.Model):
     def authors(self):
         result = ', '.join([author.__str__() for author in self.author.all()])
         return result
+
+    def get_absolute_url(self):
+        return reverse('books:detail_book', args=[self.pk])
 
     class Meta:
         ordering = ['title']
