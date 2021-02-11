@@ -75,3 +75,13 @@ class CreateAuthorViewTest(TestCase):
     def test_create_author_post_view(self):
         resp = self.client.post('/add_new_author/', {'name': 'test', 'surname': 'Testor'}, follow=True)
         self.assertEqual(resp.status_code, 200, msg=resp.content)
+
+
+class CreateGenreViewTest(TestCase):
+    def test_create_genre_get_view(self):
+        resp = self.client.get('/add_new_genre/')
+        self.assertEqual(resp.status_code, 200, msg=resp.content)
+
+    def test_create_author_post_view(self):
+        resp = self.client.post('/add_new_genre/', {'name': 'test'}, follow=True)
+        self.assertEqual(resp.status_code, 200, msg=resp.content)
