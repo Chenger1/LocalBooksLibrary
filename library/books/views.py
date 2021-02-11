@@ -1,5 +1,6 @@
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
+from django.views.generic import CreateView
 
 from books.models import Book, Author, Genre
 
@@ -42,3 +43,14 @@ class ListGenreView(ListView):
 class DetailGenreView(DetailView):
     model = Genre
     template_name = 'genre/detail_genre.html'
+
+
+class AddNewBookView(CreateView):
+    model = Book
+    template_name = 'book/add_new_book.html'
+    fields = ['title', 'author', 'genre', 'annotation', 'rate', 'review', 'is_favorite', 'to_read', 'have_read']
+
+
+class DetailBookView(DetailView):
+    model = Book
+    template_name = 'book/detail_book.html'
