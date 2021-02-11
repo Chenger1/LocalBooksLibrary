@@ -54,7 +54,7 @@ class Book(models.Model):
     genre = models.ForeignKey(Genre, related_name='books', on_delete=models.SET_NULL,
                               blank=True, null=True)
 
-    rate = models.IntegerField(choices=RATE_CHOICES, blank=True)
+    rate = models.IntegerField(choices=RATE_CHOICES)
 
     review = models.TextField(blank=True)
 
