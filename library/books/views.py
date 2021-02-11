@@ -54,3 +54,9 @@ class AddNewBookView(CreateView):
 class DetailBookView(DetailView):
     model = Book
     template_name = 'book/detail_book.html'
+
+
+class AddNewAuthorView(CreateView):
+    model = Author
+    template_name = 'author/add_new_author.html'
+    fields = ['name', 'surname']
