@@ -5,10 +5,25 @@
 
 {% block content %}
 <div class="container">
-    <form method="post">
-        {% csrf_token %}
-        {{form|crispy}}
-        <input type="submit" class="btn btn-primary" value="Save">
-    </form>
+    <div class="row">
+        <div class="col-2">
+            <h3>Options:</h3>
+            <ul class="list-group" style="text-align: center; margin: 0 auto;">
+                <li class="list-group-item">
+                    <a href="">Add new author</a>
+                </li>
+                <li class="list-group-item">
+                    <a href="">Add new genre</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-10">
+                <form method="post">
+                    {% csrf_token %}
+                    {{form|crispy}}
+                    <input type="submit" class="btn btn-primary" value="Save">
+                </form>
+        </div>
+    </div>
 </div>
 {% endblock %}
