@@ -28,6 +28,9 @@ class Genre(models.Model):
     def book_amount(self):
         return self.books.count()
 
+    def get_absolute_url(self):
+        return reverse('books:detail_genre', args=[self.pk])
+
     class Meta:
         ordering = ['name']
         db_table = 'genre'
