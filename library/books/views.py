@@ -60,3 +60,9 @@ class AddNewAuthorView(CreateView):
     model = Author
     template_name = 'author/add_new_author.html'
     fields = ['name', 'surname']
+
+
+class AddNewGenreView(CreateView):
+    model = Genre
+    template_name = 'genre/add_new_genre.html'
+    fields = ['name']

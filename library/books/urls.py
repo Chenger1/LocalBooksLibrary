@@ -15,5 +15,6 @@ urlpatterns = [
     path('genre/<int:pk>', views.DetailGenreView.as_view(), name='detail_genre'),
     path('add_new_book/', views.AddNewBookView.as_view(), name='add_new_book'),
     path('detail_book/<int:pk>/', views.DetailBookView.as_view(), name='detail_book'),
-    path('add_new_author/', views.AddNewAuthorView.as_view(), name='add_new_author')
+    path('add_new_author/', views.AddNewAuthorView.as_view(), name='add_new_author'),
+    path('add_new_genre/', views.AddNewGenreView.as_view(), name='add_new_genre')
 ]
