@@ -68,7 +68,7 @@ class CheckFoldersUpdate(View):
 
     def post(self, request):
         self.save_folders(request.POST['folder_path'])
-        return redirect('ebooks:list_top_e-folder')
+        return redirect('ebooks:update_info_about_books')
 
     @staticmethod
     def save_folders(folder_path: str):
