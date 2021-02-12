@@ -33,7 +33,14 @@
 
                 <div class="col-10">
                     <div class="row">
-                        <h2>{{author}}</h2>
+                        <div class="col-11">
+                            <h4>{{author}}</h4>
+                        </div>
+                        <div class="col-1">
+                            <h4><a href="{% url 'books:update_author' author.pk %}">Edit</a></h4>
+                        </div>
+                    </div>
+                    <div class="row">
                         <table class="table">
                             <tr>
                                 <td>Name</td>

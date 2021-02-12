@@ -73,3 +73,15 @@ class UpdateBookView(UpdateView):
     model = Book
     template_name = 'book/add_new_book.html'
     fields = ['title', 'author', 'genre', 'annotation', 'rate', 'review', 'is_favorite', 'to_read', 'have_read']
+
+
+class UpdateGenreView(UpdateView):
+    model = Genre
+    template_name = 'genre/add_new_genre.html'
+    fields = ['name']
+
+
+class UpdateAuthorView(UpdateView):
+    model = Author
+    template_name = 'author/add_new_author.html'
+    fields = ['name', 'surname']
