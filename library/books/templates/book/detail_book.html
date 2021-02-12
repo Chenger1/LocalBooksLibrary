@@ -46,6 +46,10 @@
                     {% endif %}
                 </div>
                 <a href="{% url 'books:update_book' book.pk %}">Update info</a>
+                <form method="post" action="{% url 'books:delete_book'  book.pk %}">
+                    {% csrf_token %}
+                    <input type="submit" class="btn btn-primary" value="Delete book">
+                </form>
             </div>
         </div>
     </div>

@@ -1,4 +1,6 @@
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 
 import books.views as views
 
@@ -20,4 +22,11 @@ urlpatterns = [
     path('update_book/<int:pk>/', views.UpdateBookView.as_view(), name='update_book'),
     path('update_author/<int:pk>/', views.UpdateAuthorView.as_view(), name='update_author'),
     path('update_genre/<int:pk>/', views.UpdateGenreView.as_view(), name='update_genre'),
+    path('delete_book/<int:pk>/', views.DeleteBookView.as_view(), name='delete_book'),
+    path('delete_author/<int:pk>/', views.DeleteAuthorView.as_view(), name='delete_author'),
+    path('delete_genre/<int:pk>/', views.DeleteGenreView.as_view(), name='delete_genre'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)

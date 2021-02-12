@@ -1,7 +1,10 @@
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
-from django.views.generic import CreateView
 from django.views.generic.edit import UpdateView
+from django.views.generic.edit import DeleteView
+from django.views.generic import CreateView
+
+from django.urls import reverse_lazy
 
 from books.models import Book, Author, Genre
 
@@ -85,3 +88,18 @@ class UpdateAuthorView(UpdateView):
     model = Author
     template_name = 'author/add_new_author.html'
     fields = ['name', 'surname']
+
+
+class DeleteBookView(DeleteView):
+    model = Book
+    success_url = reverse_lazy('books:list_books')
+
+
+class DeleteGenreView(DeleteView):
+    model = Genre
+    success_url = reverse_lazy('books:list_genre')
+
+
+class DeleteAuthorView(DeleteView):
+    model = Author
+    success_url = reverse_lazy('books:list_author')

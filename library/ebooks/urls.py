@@ -1,4 +1,6 @@
 from django.urls import path
+from django.conf import settings
+from django.conf.urls.static import static
 
 import ebooks.views as views
 
@@ -22,3 +24,6 @@ urlpatterns = [
     path('list-extensions/', views.ListExtensionsView.as_view(), name='list_extensions'),
     path('detail_extension/<int:pk>/', views.DetailExtensionView.as_view(), name='detail_extension')
 ]
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)

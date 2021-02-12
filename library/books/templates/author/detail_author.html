@@ -33,11 +33,15 @@
 
                 <div class="col-10">
                     <div class="row">
-                        <div class="col-11">
+                        <div class="col-9">
                             <h4>{{author}}</h4>
                         </div>
-                        <div class="col-1">
-                            <h4><a href="{% url 'books:update_author' author.pk %}">Edit</a></h4>
+                        <div class="col-3 edit_list">
+                            <h4 class="edit_button"><a href="{% url 'books:update_author' author.pk %}">Edit</a></h4>
+                            <form method="post" action="{% url 'books:delete_author'  author.pk %}">
+                                {% csrf_token %}
+                                <input type="submit" class="btn btn-primary" value="Delete author">
+                            </form>
                         </div>
                     </div>
                     <div class="row">
