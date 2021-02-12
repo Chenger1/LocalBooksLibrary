@@ -28,7 +28,9 @@
               Update
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="{% url 'books:add_new_book' %}">Add new book/books</a>
+                <a class="dropdown-item" href="{% url 'books:add_new_book' %}">Add new book</a>
+                <a class="dropdown-item" href="{% url 'books:add_new_author' %}">Add new author</a>
+                <a class="dropdown-item" href="{% url 'books:add_new_genre' %}">Add new genre</a>
                 <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="{% url 'ebooks:list_top_e-folder' %}">Go to Ebook section</a>
             </div>
