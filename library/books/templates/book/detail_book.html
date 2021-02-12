@@ -3,5 +3,50 @@
 {% block title %} Book {% endblock %}
 
 {% block content %}
-    {{book.title}}}
+    <div class="container">
+        <div class="row">
+            <div class="col-6">
+                <h3>{{ book.title }}</h3>
+                <h5>{{book.authors}}</h5>
+                <div>
+                    {% if book.genre %}
+                        <h5>Genre - {{ book.genre }}</h5>
+                    {% endif %}
+                </div>
+                <div>
+                    <h5>Rating - {{ book.rate_label }}</h5>
+                </div>
+                <div>
+                    {% if book.is_favorite %}
+                        Favorite
+                    {% endif %}
+                    {% if book.to_read %}
+                        To read
+                    {% endif %}
+                    {% if book.have_read %}
+                        Have read
+                    {% endif %}
+                </div>
+            </div>
+            <div class="col-6">
+                <div>
+                    <h4>Annotation:</h4>
+                    {% if book.annotation %}
+                        {{book.annotation}}
+                    {% else %}
+                        No annotation
+                    {% endif %}
+                </div>
+                <div>
+                    <h4>Review:</h4>
+                    {% if book.review %}
+                        {{book.review}}
+                    {% else %}
+                        No review
+                    {% endif %}
+                </div>
+                <button class="btn btn-light"><a href="">Update info</a></button>
+            </div>
+        </div>
+    </div>
 {% endblock %}

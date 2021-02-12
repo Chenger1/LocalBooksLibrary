@@ -44,7 +44,7 @@
 
                             {% for ebook in extension.ebook.all %}
                                 <tr>
-                                    <td>{{ ebook.base_book.title }}</td>
+                                    <td><a href="{% url 'books:detail_book' ebook.base_book.pk %}">{{ ebook.base_book.title }}</a></td>
                                     <td>{{ ebook.base_book.authors}}</td>
                                     <td>{{ ebook.base_book.genre.name }}</td>
                                     <td>{{ ebook.base_book.rate }}</td>

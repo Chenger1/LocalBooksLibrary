@@ -43,7 +43,7 @@
 
                             {% for book in genre.books.all %}
                                 <tr>
-                                    <td>{{ book.title }}</td>
+                                    <td><a href="{% url 'books:detail_book' book.pk %}">{{ book.title }}</a></td>
                                     <td>{{ book.authors}}</td>
                                     <td>{{ book.rate }}</td>
                                 </tr>
