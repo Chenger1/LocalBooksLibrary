@@ -1,6 +1,6 @@
 from django.test import TestCase
 
-from books.models import Book, Author
+from books.models import Book, Author, Genre
 
 import random
 
@@ -84,4 +84,24 @@ class CreateGenreViewTest(TestCase):
 
     def test_create_author_post_view(self):
         resp = self.client.post('/add_new_genre/', {'name': 'test'}, follow=True)
+        self.assertEqual(resp.status_code, 200, msg=resp.content)
+
+
+class DeleteViewsTest(TestCase):
+    @classmethod
+    def setUpTestData(cls):
+        cls.book = Book.objects.create(title='test', rate=1)
+        cls.author = Author.objects.create(surname='test')
+        cls.genre = Genre.objects.create(name='test')
+
+    def test_delete_book_view(self):
+        resp = self.client.post(f'/delete_book/{self.book.pk}/', follow=True)
+        self.assertEqual(resp.status_code, 200, msg=resp.content)
+
+    def test_delete_author_view(self):
+        resp = self.client.post(f'/delete_author/{self.author.pk}/', follow=True)
+        self.assertEqual(resp.status_code, 200, msg=resp.content)
+
+    def test_delete_genre_view(self):
+        resp = self.client.post(f'/delete_genre/{self.genre.pk}/', follow=True)
         self.assertEqual(resp.status_code, 200, msg=resp.content)
