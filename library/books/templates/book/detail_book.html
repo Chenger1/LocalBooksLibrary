@@ -45,7 +45,7 @@
                         No review
                     {% endif %}
                 </div>
-                <button class="btn btn-light"><a href="">Update info</a></button>
+                <a href="{% url 'books:update_book' book.pk %}">Update info</a>
             </div>
         </div>
     </div>

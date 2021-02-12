@@ -1,6 +1,7 @@
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
 from django.views.generic import CreateView
+from django.views.generic.edit import UpdateView
 
 from books.models import Book, Author, Genre
 
@@ -66,3 +67,9 @@ class AddNewGenreView(CreateView):
     model = Genre
     template_name = 'genre/add_new_genre.html'
     fields = ['name']
+
+
+class UpdateBookView(UpdateView):
+    model = Book
+    template_name = 'book/add_new_book.html'
+    fields = ['title', 'author', 'genre', 'annotation', 'rate', 'review', 'is_favorite', 'to_read', 'have_read']
