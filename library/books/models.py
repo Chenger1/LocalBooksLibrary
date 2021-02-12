@@ -53,6 +53,7 @@ class Book(models.Model):
         (GOOD_RATE, 'Good'),
         (PERFECT_RATE, 'Perfect')
     )
+    dict_choices = dict(RATE_CHOICES)
 
     title = models.CharField(max_length=250)
     author = models.ManyToManyField(Author, related_name='books', blank=True)
@@ -72,6 +73,10 @@ class Book(models.Model):
     def authors(self):
         result = ', '.join([author.__str__() for author in self.author.all()])
         return result
+
+    @property
+    def rate_label(self):
+        return self.dict_choices[self.rate]
 
     def get_absolute_url(self):
         return reverse('books:detail_book', args=[self.pk])
