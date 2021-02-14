@@ -26,4 +26,20 @@
         </div>
     </div>
 </div>
+<script>
+    let to_read = document.getElementById('id_to_read')
+    let have_read = document.getElementById('id_have_read')
+
+    to_read.addEventListener('click', function(){
+        if (to_read.checked){
+            have_read.checked = false;
+        }
+    })
+    have_read.addEventListener('click', function(){
+        if (have_read.checked){
+            to_read.checked = false;
+        }
+    })
+</script>
+
 {% endblock %}
