@@ -2,3 +2,10 @@
     margin-top: 10px;
     background-color: #fcfcfc;
 }
+
+#waiting_window{
+    display: none;
+    position: absolute;
+    top: 20%;
+    right: 40%;
+}

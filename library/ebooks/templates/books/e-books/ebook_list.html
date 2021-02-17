@@ -16,7 +16,7 @@
                             <a href="{% url 'ebooks:update_info_about_books' %}">Update info about books</a>
                         </li>
                         <li class="list-group-item ebook_list_option">
-                            <a href="{% url 'ebooks:check_folder_for_update' %}">Update page</a>
+                            <a href="{% url 'ebooks:check_folder_for_update' %}" class="update_page">Update page</a>
                         </li>
                     </ul>
                 </div>
@@ -92,7 +92,7 @@
                             aria-describedby="pathHelp">
                             <small id="pathHelp" class="form-text text-muted">It looks like this: "C://Users/Personal//Books"</small>
 
-                            <button type="submit" class="btn btn-primary" style="margin-top: 15px;">Submit</button>
+                            <button type="submit" class="btn btn-primary update_page" style="margin-top: 15px;">Submit</button>
                         </form>
                     </div>
                 </div>
@@ -100,4 +100,29 @@
             </div>
         {% endif %}
     </div>
+
+<!--Modal window-->
+<div id="waiting_window" tabindex="-1" aria-labelledby="waiting_windowLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="waitingWindowLabel" style="margin: 0 auto;">Wait please!</h5>
+      </div>
+        <div class="modal-body">
+            Your books are being adding to Data Base
+        </div>
+    </div>
+  </div>
+</div>
+
+<script>
+    // Open modal window with text "Wait please" after click on buttons with classname 'update_page'
+    model_window = document.getElementById('waiting_window')
+    update_pages = document.getElementsByClassName('update_page')
+    for(let page of update_pages){
+        page.addEventListener('click', function (){
+            model_window.style.display = 'block';
+        })
+    }
+</script>
 {% endblock %}
