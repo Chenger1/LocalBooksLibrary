@@ -1,10 +1,11 @@
-from typing import Union, List
+from typing import Union, List, Tuple
 from dataclasses import dataclass, field, asdict
 from functools import reduce
 import os
 import datetime
 
 from common.system_data import transform_unix_time
+from common.zip_files import ZipManager
 
 
 @dataclass
@@ -64,9 +65,7 @@ class Finder:
             directory = Directory(name=dir_name or path.split('\\')[-1], path=path, includes=[], size=0)
 
             for item in item_to_scan:
-                item_path = f'{path}\\{item}'
-                *item_name_parts, item_extension = item.split('.')
-                item_name = ''.join(item_name_parts)
+                item_path, item_extension, item_name = cls.slice_item_for_name_and_ext(item, path)
 
                 if os.path.isfile(item_path) and cls._file_extension_checker(item_extension):
                     book = Book(name=item_name, path=item_path,
@@ -80,6 +79,13 @@ class Finder:
                     continue
         directory.size_counter()
         return directory
+
+    @staticmethod
+    def slice_item_for_name_and_ext(item_string: str, directory_path: str) -> Tuple[str, str, str]:
+        item_path = f'{directory_path}\\{item_string}'
+        *item_name_parts, item_extension = item_string.split('.')
+        item_name = ''.join(item_name_parts)
+        return item_path, item_extension, item_name
 
     @staticmethod
     def _file_extension_checker(ext: str) -> bool:
