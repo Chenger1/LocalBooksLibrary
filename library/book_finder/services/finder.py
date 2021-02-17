@@ -1,4 +1,4 @@
-from typing import Union, List, Tuple
+from typing import Union, List, Tuple, Dict
 from dataclasses import dataclass, field, asdict
 from functools import reduce
 import os
@@ -102,3 +102,9 @@ class Finder:
         book = Book(name=item_name, path=book_path,
                     extension=item_extension, size=os.path.getsize(book_path) / 1000000)
         return book
+
+    @classmethod
+    def create_folder_instance(cls, folder_data: Dict[str, str]) -> Directory:
+        directory = Directory(name=folder_data['name'], path=folder_data['folder_path'],
+                              includes=[], size=0)
+        return directory

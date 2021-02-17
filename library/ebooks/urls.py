@@ -22,7 +22,8 @@ urlpatterns = [
     path('now_found/<str:info_to_display>/', views.NotFoundView.as_view(), name='not_found'),
     path('update_info_about_books/', views.UpdateInfoAboutBooksView.as_view(), name='update_info_about_books'),
     path('list-extensions/', views.ListExtensionsView.as_view(), name='list_extensions'),
-    path('detail_extension/<int:pk>/', views.DetailExtensionView.as_view(), name='detail_extension')
+    path('detail_extension/<int:pk>/', views.DetailExtensionView.as_view(), name='detail_extension'),
+    path('add_folder/', views.AddNewFolder.as_view(), name='add_folder')
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,

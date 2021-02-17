@@ -27,8 +27,17 @@
                         </div>
 
                         <div class="col-6">
-                            <h4>Move to...</h4>
-                            {{ form.folders }}
+                            <div class="row">
+                                <div class="col">
+                                    <h4>Move to...</h4>
+                                    {{ form.folders }}
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top: 15px;">
+                                <div class="col">
+                                    <a href="{% url 'ebooks:add_folder' %}">Add new folder</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <input type="submit" class="btn btn-primary" value="Submit"

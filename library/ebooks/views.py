@@ -11,12 +11,12 @@ from ebooks.services.save_data_to_db import Saver
 
 from book_finder.services.finder import Finder
 
-from ebooks.forms import AddNewBookForm
+from ebooks.forms import AddNewBookForm, FolderForm
 from ebooks.models import Extension
 
 from books.services.save_to_db import Saver as sv
 
-from common.system_data import move_file_to_folder
+from common.system_data import move_file_to_folder, create_folder_in_system
 from common.zip_files import ZipManager
 from fb2_parser.parser import define_fb2_parser
 from epub_parser.parser import EpubParser
@@ -149,3 +149,22 @@ class ListExtensionsView(ListView):
 class DetailExtensionView(DetailView):
     model = Extension
     template_name = 'books/e-books/detail_extension.html'
+
+
+class AddNewFolder(View):
+    template = 'folder/add_folder.html'
+
+    def get(self, request):
+        form = FolderForm()
+        return render(request, self.template, {'form': form})
+
+    def post(self, request):
+        form = FolderForm(data=request.POST)
+        if form.is_valid():
+            folder_form = form.cleaned_data
+            folder_form['folder_path'] = f'{folder_form["parent_folder"].path}\\{folder_form["name"]}'
+            create_folder_in_system(folder_form['folder_path'])
+            folder_inst = Finder.create_folder_instance(folder_form)
+            Saver.save_folder_in_db(folder_inst, folder_form['parent_folder'])
+
+            return redirect('ebooks:add_new_book')
