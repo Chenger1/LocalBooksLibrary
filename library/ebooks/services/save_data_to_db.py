@@ -12,12 +12,8 @@ class Saver:
 
     @classmethod
     def save_structure_to_db(cls, directory: Directory, parent_folder: Folder = None) -> dict:
-        new_folder = Folder.objects.create(name=directory.name,
-                                           parent_folder=parent_folder,
-                                           size=directory.size,
-                                           created=directory.file_creation_time,
-                                           is_top_folder=False if parent_folder else True,
-                                           path=directory.path)
+        new_folder = cls.save_folder_in_db(directory, parent_folder)
+
         if directory.includes:  # if directory contains book - save them
             cls._save_book_instances_to_db(new_folder, directory.includes)
 
@@ -55,6 +51,16 @@ class Saver:
                                         size=book.size, path=book.path,
                                         folder=folder, base_book=base_book_inst)
         return book_inc
+
+    @staticmethod
+    def save_folder_in_db(directory: Directory, parent_folder: Folder = None) -> Folder:
+        new_folder = Folder.objects.create(name=directory.name,
+                                           parent_folder=parent_folder,
+                                           size=directory.size,
+                                           created=directory.file_creation_time,
+                                           is_top_folder=False if parent_folder else True,
+                                           path=directory.path)
+        return new_folder
 
     @staticmethod
     def _get_base_book(title: str, book: BookClass) -> Book:
