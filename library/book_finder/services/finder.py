@@ -48,16 +48,16 @@ class Directory(BaseItem):
 
 class Finder:
     @classmethod
-    def find_books_in_system(cls, path: str, dir_name: str = None) -> Union[Directory, dict]:
+    def find_books_in_system(cls, path: str, dir_name: str = None) -> Union[Directory, dict, None]:
         """ Finds all the books for given path.
         :return None if path is wrong.
         :return Folder instance
         """
-        if os.path.isfile(path):
-            return {'status': 'Wrong path'}
 
         try:
             item_to_scan = os.listdir(path)
+            if not item_to_scan:
+                return None
         except FileNotFoundError:
             return {'status': 'Wrong path'}
         else:
@@ -72,12 +72,14 @@ class Finder:
                     directory.includes.append(book)
 
                 elif os.path.isdir(item_path) and not item.startswith('.'):
-                    directory.subdir.append(cls.find_books_in_system(item_path, item))
+                    direct = cls.find_books_in_system(item_path, item)
+                    if direct:
+                        directory.subdir.append(direct)
 
                 else:
                     continue
         directory.size_counter()
-        return directory
+        return directory if directory.includes else None  # If directory is empty returns None
 
     @staticmethod
     def slice_item_for_name_and_ext(item_string: str, directory_path: str) -> Tuple[str, str, str]:
