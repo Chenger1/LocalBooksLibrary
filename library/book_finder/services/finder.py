@@ -5,7 +5,6 @@ import os
 import datetime
 
 from common.system_data import transform_unix_time
-from common.zip_files import ZipManager
 
 
 @dataclass

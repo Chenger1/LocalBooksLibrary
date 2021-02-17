@@ -17,6 +17,7 @@ from ebooks.models import Extension
 from books.services.save_to_db import Saver as sv
 
 from common.system_data import move_file_to_folder
+from common.zip_files import ZipManager
 from fb2_parser.parser import define_fb2_parser
 from epub_parser.parser import EpubParser
 
@@ -72,6 +73,7 @@ class CheckFoldersUpdate(View):
 
     @staticmethod
     def save_folders(folder_path: str):
+        ZipManager.extract_zip_files(folder_path)
         directory = Finder.find_books_in_system(folder_path)
         Saver.save_structure_to_db(directory)
 
