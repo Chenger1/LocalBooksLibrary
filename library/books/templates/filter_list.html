@@ -1,0 +1,24 @@
+                    <h3>Filter by:</h3>
+                    <ul class="list-group" style="text-align: center; margin: 0 auto;">
+                        <li class="list-group-item">
+                            <a href="{% url 'books:list_books' %}">All books</a>
+                        </li>
+                        <li class="list-group-item" >
+                            <a href="{% url 'books:list_favorite_books' %}">Favorites</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="{% url 'books:list_to_read_books' %}">To Read</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="{% url 'books:list_have_read_books' %}">Have Read</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="{% url 'books:list_author' %}">Authors</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="{% url 'ebooks:list_extensions' %}">Formats</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a href="{% url 'books:list_genre' %}">Genres</a>
+                        </li>
+                    </ul>
